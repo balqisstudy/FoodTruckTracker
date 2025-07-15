@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.recyclerview)
     implementation(libs.cardview)
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

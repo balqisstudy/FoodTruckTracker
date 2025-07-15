@@ -1,4 +1,65 @@
 <resources>
-    <string name="app_name">FoodTruckTracker</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="app_name">Food Truck Tracker</string>
+    <string name="title_activity_maps">Food Truck Map</string>
+    
+    <!-- Navigation and Menu -->
+    <string name="navigation_map">Map</string>
+    <string name="navigation_add">Add Truck</string>
+    <string name="navigation_about">About</string>
+    
+    <!-- Main Activity -->
+    <string name="welcome_title">Welcome to Food Truck Tracker</string>
+    <string name="welcome_description">Discover and track food trucks in your area with real-time location updates from the community.</string>
+    <string name="btn_view_map">View Food Truck Map</string>
+    <string name="btn_add_truck">Report Food Truck Location</string>
+    <string name="btn_about">About</string>
+    
+    <!-- Insert Data Activity -->
+    <string name="add_truck_title">Add Food Truck</string>
+    <string name="hint_truck_name">Food Truck Name</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_latitude">Latitude</string>
+    <string name="hint_longitude">Longitude</string>
+    <string name="hint_reported_by">Reported By (Your Name)</string>
+    <string name="btn_get_location">Get Current Location</string>
+    <string name="btn_submit">Submit Food Truck</string>
+    <string name="label_truck_type">Food Truck Type</string>
+    <string name="label_coordinates">Location Coordinates</string>
+    
+    <!-- About Activity -->
+    <string name="about_title">About</string>
+    <string name="app_description">Food Truck Tracker is a crowdsourced mobile application that helps users discover and track food truck locations in real-time. The app displays food truck markers on Google Maps with information about truck types, last reported times, and reporting users.</string>
+    <string name="developer_team">Developer Team</string>
+    <string name="project_info">Project Information</string>
+    <string name="copyright">© 2025 Food Truck Tracker Team</string>
+    <string name="course_info">Developed for Mobile Application Development Course</string>
+    <string name="github_label">GitHub Repository:</string>
+    
+    <!-- Food Truck Types -->
+    <string name="type_mee_goreng">Mee Goreng</string>
+    <string name="type_coffee">Coffee</string>
+    <string name="type_bbq">BBQ</string>
+    <string name="type_dessert">Dessert</string>
+    <string name="type_drinks">Drinks</string>
+    <string name="type_nasi_lemak">Nasi Lemak</string>
+    <string name="type_rojak">Rojak</string>
+    <string name="type_satay">Satay</string>
+    <string name="type_ice_cream">Ice Cream</string>
+    <string name="type_other">Other</string>
+    
+    <!-- Messages -->
+    <string name="location_updated">Location updated!</string>
+    <string name="location_permission_denied">Location permission denied</string>
+    <string name="error_getting_location">Error getting location: %s</string>
+    <string name="truck_added_success">Food truck added successfully!</string>
+    <string name="truck_add_failed">Failed to add food truck</string>
+    <string name="network_error">Network error: %s</string>
+    <string name="server_connection_error">Error connecting to server</string>
+    <string name="loading_trucks_failed">Failed to load food trucks</string>
+    <string name="validation_name_required">Name is required</string>
+    <string name="validation_description_required">Description is required</string>
+    <string name="validation_latitude_required">Latitude is required</string>
+    <string name="validation_longitude_required">Longitude is required</string>
+    <string name="validation_reporter_required">Reporter name is required</string>
+    <string name="validation_invalid_coordinates">Invalid latitude or longitude format</string>
 </resources>

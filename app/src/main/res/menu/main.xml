@@ -5,6 +5,18 @@
     <item
         android:id="@+id/menuMAp"
         android:icon="@android:drawable/ic_menu_mapmode"
-        android:title="Map"
+        android:title="@string/navigation_map"
         app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/menu_add_truck"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/navigation_add"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/menu_about"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/navigation_about"
+        app:showAsAction="never" />
 </menu>

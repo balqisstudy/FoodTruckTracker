@@ -34,27 +34,35 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCgpKAfQ9OMV-otc7hpOMfTHjJyVGcwn_I" />
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
 
-        <!-- Other activities -->
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".InsertDataActivity"
-            tools:ignore="Instantiatable" />
-        <activity android:name=".AboutActivity"
-            tools:ignore="Instantiatable" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".InsertDataActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
 
     </application>
 </manifest>

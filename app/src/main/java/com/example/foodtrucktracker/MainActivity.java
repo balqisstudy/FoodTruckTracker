@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -24,12 +26,40 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+        // Initialize buttons
+        Button btnViewMap = findViewById(R.id.btn_view_map);
+        Button btnAddTruck = findViewById(R.id.btn_add_truck);
+        Button btnAbout = findViewById(R.id.btn_about);
+
+        // Set button listeners
+        btnViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MapsActivity.class));
+            }
+        });
+
+        btnAddTruck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, InsertDataActivity.class));
+            }
+        });
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
+            }
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
+    
     //add menu to the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.menuMAp) {
             //open map activity
             startActivity(new Intent(this, MapsActivity.class));
+            return true;
+        } else if (itemId == R.id.menu_add_truck) {
+            startActivity(new Intent(this, InsertDataActivity.class));
+            return true;
+        } else if (itemId == R.id.menu_about) {
+            startActivity(new Intent(this, AboutActivity.class));
             return true;
         } else {
             return super.onOptionsItemSelected(item);

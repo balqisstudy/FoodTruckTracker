@@ -1,15 +1,61 @@
+# Android Build Files
 *.iml
 .gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+local.properties
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
 .DS_Store
-/build
-/captures
+build
+captures
 .externalNativeBuild
 .cxx
-local.properties
+
+# Android Studio
+.idea/
+*.iws
+/out/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (API Keys)
+google-services.json
+
+# Node.js Server
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+server/node_modules/
+server/*.db
+server/.env
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# API Keys (keep these secret!)
+# local.properties should not be committed if it contains API keys
+
+# Generated files
+app/build/
+server/dist/
+
+# Temporary files
+tmp/
+temp/
