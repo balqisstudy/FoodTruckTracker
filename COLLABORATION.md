@@ -21,15 +21,15 @@ git init
 git add .
 git commit -m "Initial Food Truck Tracker project setup"
 git branch -M main
-git remote add origin https://github.com/yourusername/FoodTruckTracker2.git
+git remote add origin https://github.com/balqisstudy/FoodTruckTracker.git
 git push -u origin main
 ```
 
 **Team Members:**
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/FoodTruckTracker2.git
-cd FoodTruckTracker2
+git clone https://github.com/balqisstudy/FoodTruckTracker.git
+cd FoodTruckTracker
 ```
 
 ### 2. Branch Strategy
@@ -89,7 +89,7 @@ git merge main  # or git rebase main
 ### 4. File Organization for Team Collaboration
 
 ```
-FoodTruckTracker2/
+FoodTruckTracker/
 ├── app/                          # Mobile App (Developer 1)
 │   ├── src/main/java/
 │   └── src/main/res/
