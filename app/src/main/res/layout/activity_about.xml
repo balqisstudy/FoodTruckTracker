@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Root layout for the about screen, using ConstraintLayout -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    tools:context=".AboutActivity">
+
+    <!-- Page Title -->
+    <TextView
+        android:id="@+id/aboutPageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Food Truck Tracker"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#3F51B5"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Application Description -->
+    <TextView
+        android:id="@+id/appDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="This application helps you track the real-time locations of food trucks. Administrators can update food truck information, and users can view their locations on a map."
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:layout_marginBottom="24dp"
+        android:lineSpacingExtra="4dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/aboutPageTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Developer Details Section Title -->
+    <TextView
+        android:id="@+id/developerDetailsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Developer Details:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#3F51B5"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/appDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Group: Alpha Team"
+        android:textSize="16sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/developerDetailsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/studentNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Number: 12345678"
+        android:textSize="16sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/groupName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/programmeCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Programme Code: ICT602"
+        android:textSize="16sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/studentNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Copyright Statement -->
+    <TextView
+        android:id="@+id/copyrightStatement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="© 2025 Food Truck Tracker. All rights reserved."
+        android:textSize="14sp"
+        android:textColor="#777777"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/programmeCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Clickable URL for Application Website (e.g., GitHub Page) -->
+    <TextView
+        android:id="@+id/textViewWebsiteLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visit our GitHub page"
+        android:textColor="#0000FF"
+        android:textSize="16sp"
+        android:autoLink="web"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@+id/copyrightStatement"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
