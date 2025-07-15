@@ -183,6 +183,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 
                 if (marker != null) {
                     markerFoodTruckMap.put(marker, truck);
+
+                    setupChipFilter(foodTrucks);
                 }
             }
         }
@@ -214,6 +216,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         
         return BitmapDescriptorFactory.defaultMarker(getHueFromColor(color));
     }
+
+    Marker marker = mMap.addMarker(new MarkerOptions()
+            .position(position)
+            .title(truck.getName())
+            .snippet(snippet)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_foodtruck))); // use your drawable here
+
 
     private float getHueFromColor(int color) {
         float[] hsv = new float[3];

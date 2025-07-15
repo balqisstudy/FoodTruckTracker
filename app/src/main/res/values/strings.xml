@@ -62,4 +62,22 @@
     <string name="validation_longitude_required">Longitude is required</string>
     <string name="validation_reporter_required">Reporter name is required</string>
     <string name="validation_invalid_coordinates">Invalid latitude or longitude format</string>
+
+    <string name="app_name">FilterPageExample</string>
+    <string name="filter_title">Filter</string>
+    <string name="back_button_description">Back</string>
+    <string name="accepts_offers">Accepts offers</string>
+    <string name="accessibility">Accessibility</string>
+    <string name="birthday_parties">Birthday Parties</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="bus_truck_parking">Bus Truck Parking</string>
+    <string name="children_parties">Children\'s Parties</string>
+    <string name="contactless">Contactless</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="debit_card">Debit Card</string>
+    <string name="drive_thru">Drive Thru</string>
+    <string name="clear_button">Clear</string>
+    <string name="apply_filter_button">Apply filter</string>
+
+
 </resources>
