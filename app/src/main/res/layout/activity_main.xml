@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_color"
+        android:background="@color/material_dynamic_primary20"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="Welcome to Food Truck Tracker"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/material_dynamic_primary30"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:gravity="center" />
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:text="Quick Actions"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/material_dynamic_primary30"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                         android:layout_marginBottom="12dp"
                         android:text="View Food Truck Map"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/primary_color"
+                        android:backgroundTint="@color/material_dynamic_primary10"
                         app:cornerRadius="8dp" />
 
                     <Button
@@ -101,9 +101,9 @@
                         android:layout_height="56dp"
                         android:layout_marginBottom="12dp"
                         android:text="Report Food Truck Location"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/material_dynamic_primary30"
                         style="@style/Widget.Material3.Button.OutlinedButton"
-                        app:strokeColor="@color/primary_color"
+                        app:strokeColor="@color/material_dynamic_primary10"
                         app:cornerRadius="8dp" />
 
                     <Button
@@ -111,7 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:text="About"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/material_dynamic_primary30"
                         style="@style/Widget.Material3.Button.TextButton" />
 
                 </LinearLayout>
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
                         android:text="Features"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/material_dynamic_primary30"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
