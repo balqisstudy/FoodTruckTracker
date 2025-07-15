@@ -40,7 +40,7 @@ A crowdsourced mobile application for tracking food truck locations in real-time
 ## Project Structure
 
 ```
-FoodTruckTracker2/
+FoodTruckTracker/
 ├── app/                        # Android application
 │   ├── src/main/
 │   │   ├── java/com/example/foodtrucktracker/
@@ -73,8 +73,8 @@ FoodTruckTracker2/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/FoodTruckTracker2.git
-   cd FoodTruckTracker2
+   git clone https://github.com/balqisstudy/FoodTruckTracker.git
+   cd FoodTruckTracker
    ```
 
 2. **Get Google Maps API Key**:

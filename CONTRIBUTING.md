@@ -21,8 +21,8 @@ Our team is organized as follows:
 ### Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/FoodTruckTracker2.git
-   cd FoodTruckTracker2
+   git clone https://github.com/balqisstudy/FoodTruckTracker.git
+   cd FoodTruckTracker
    ```
 
 2. Install server dependencies:
