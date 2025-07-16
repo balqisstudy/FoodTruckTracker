@@ -6,11 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,8 +15,6 @@ import com.example.foodtrucktracker.models.FoodTruck;
 import com.example.foodtrucktracker.network.ApiClient;
 import com.example.foodtrucktracker.network.FoodTruckApiService;
 import com.example.foodtrucktracker.utils.DateTimeUtils;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,6 +24,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.foodtrucktracker.databinding.ActivityMapsBinding;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,107 +39,62 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TAG = "MapsActivity";
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private GoogleMap mMap;
+    private ActivityMapsBinding binding;
     private FoodTruckApiService apiService;
     private Map<Marker, FoodTruck> markerFoodTruckMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            super.onCreate(savedInstanceState);
-            Log.d(TAG, "onCreate: Starting MapsActivity");
-            
-            // Check if Google Play Services is available
-            GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-            int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(this);
-            
-            if (resultCode != ConnectionResult.SUCCESS) {
-                Log.e(TAG, "Google Play Services not available: " + resultCode);
-                if (googleApiAvailability.isUserResolvableError(resultCode)) {
-                    googleApiAvailability.getErrorDialog(this, resultCode, 9000).show();
-                } else {
-                    Toast.makeText(this, "Google Play Services required for maps", Toast.LENGTH_LONG).show();
-                    finish();
-                }
-                return;
-            }
-            
-            setContentView(R.layout.activity_maps);
-            Log.d(TAG, "onCreate: Layout set successfully");
+        super.onCreate(savedInstanceState);
 
-            // Initialize API service
-            apiService = ApiClient.getFoodTruckApiService();
-            Log.d(TAG, "onCreate: API service initialized");
+        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            Log.d(TAG, "onCreate: Looking for map fragment with ID: map");
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            if (mapFragment != null) {
-                Log.d(TAG, "onCreate: Map fragment found, getting map async");
-                mapFragment.getMapAsync(this);
-            } else {
-                Log.e(TAG, "onCreate: Map fragment is null - this should not happen with fragment in layout");
-                Toast.makeText(this, "Map fragment not found in layout", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error in onCreate: ", e);
-            Toast.makeText(this, "Error initializing map: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            finish();
+        // Initialize API service
+        apiService = ApiClient.getFoodTruckApiService();
+
+        // Ensure the map fragment is present
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_container);
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.map_container, mapFragment)
+                    .commit();
+        }
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
         }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d(TAG, "Map is ready, setting up...");
-        try {
-            mMap = googleMap;
+        mMap = googleMap;
 
-            if (mMap == null) {
-                Log.e(TAG, "GoogleMap object is null");
-                Toast.makeText(this, "Failed to initialize map", Toast.LENGTH_LONG).show();
-                return;
+        // Set default location to Kuala Lumpur, Malaysia
+        LatLng defaultLocation = new LatLng(3.139, 101.6869);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
+
+        // Enable location if permission is granted
+        enableMyLocation();
+
+        // Set up info window adapter
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public android.view.View getInfoWindow(Marker marker) {
+                return null; // Use default frame
             }
 
-            // Set default location to Kuala Lumpur, Malaysia
-            LatLng defaultLocation = new LatLng(3.139, 101.6869);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
+            @Override
+            public android.view.View getInfoContents(Marker marker) {
+                // You can customize this layout in custom_info_window.xml
+                return null;
+            }
+        });
 
-            // Enable location if permission is granted
-            enableMyLocation();
-
-            // Set up info window adapter
-            mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                @Override
-                public android.view.View getInfoWindow(Marker marker) {
-                    return null; // Use default frame
-                }
-
-                @Override
-                public android.view.View getInfoContents(Marker marker) {
-                    try {
-                        android.view.View view = getLayoutInflater().inflate(R.layout.custom_info_window, null);
-                        
-                        FoodTruck foodTruck = markerFoodTruckMap.get(marker);
-                        if (foodTruck != null) {
-                            // You can customize this layout in custom_info_window.xml
-                            // For now, we'll use the default info window
-                        }
-                        return view;
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error inflating custom info window", e);
-                        return null; // Fall back to default info window
-                    }
-                }
-            });
-
-            // Load food trucks from server
-            loadFoodTrucks();
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Error in onMapReady", e);
-            Toast.makeText(this, "Error setting up map: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        // Load food trucks from server
+        loadFoodTrucks();
     }
 
     private void enableMyLocation() {
@@ -159,21 +109,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void loadFoodTrucks() {
-        Log.d(TAG, "Loading food trucks from server...");
         Call<List<FoodTruck>> call = apiService.getAllFoodTrucks();
         call.enqueue(new Callback<List<FoodTruck>>() {
             @Override
             public void onResponse(Call<List<FoodTruck>> call, Response<List<FoodTruck>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<FoodTruck> foodTrucks = response.body();
-                    Log.d(TAG, "Successfully loaded " + foodTrucks.size() + " food trucks from server");
                     displayFoodTrucksOnMap(foodTrucks);
-                    Toast.makeText(MapsActivity.this, "Loaded " + foodTrucks.size() + " food trucks", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Loaded " + foodTrucks.size() + " food trucks");
                 } else {
-                    Log.e(TAG, "Failed to load food trucks: " + response.code() + " - " + response.message());
-                    Toast.makeText(MapsActivity.this, "Server connection failed. Showing sample data.", Toast.LENGTH_LONG).show();
-                    
-                    // Load sample data for demonstration
+                    Log.e(TAG, "Failed to load food trucks: " + response.code());
+                    Toast.makeText(MapsActivity.this, "Failed to load food trucks", Toast.LENGTH_SHORT).show();
                     loadSampleData();
                 }
             }
@@ -181,92 +127,61 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onFailure(Call<List<FoodTruck>> call, Throwable t) {
                 Log.e(TAG, "Error loading food trucks", t);
-                Toast.makeText(MapsActivity.this, "Network error. Showing sample data.", Toast.LENGTH_LONG).show();
-                
-                // Load sample data for demonstration
+                Toast.makeText(MapsActivity.this, "Error connecting to server", Toast.LENGTH_SHORT).show();
                 loadSampleData();
             }
         });
     }
 
     private void loadSampleData() {
-        Log.d(TAG, "Loading sample data...");
         // Sample data for demonstration when server is not available
         java.util.List<FoodTruck> sampleTrucks = new java.util.ArrayList<>();
-        
-        sampleTrucks.add(new FoodTruck(1, "Mee Goreng Express", "Mee Goreng", 
-                "Delicious traditional Mee Goreng", 3.1390, 101.6869, 
+
+        sampleTrucks.add(new FoodTruck(1, "Mee Goreng Express", "Mee Goreng",
+                "Delicious traditional Mee Goreng", 3.1390, 101.6869,
                 "Ahmad", DateTimeUtils.getCurrentISOTime(), "", true));
-        
-        sampleTrucks.add(new FoodTruck(2, "Coffee on Wheels", "Coffee", 
-                "Fresh coffee and pastries", 3.1500, 101.7000, 
+
+        sampleTrucks.add(new FoodTruck(2, "Coffee on Wheels", "Coffee",
+                "Fresh coffee and pastries", 3.1500, 101.7000,
                 "Siti", DateTimeUtils.getCurrentISOTime(), "", true));
-        
-        sampleTrucks.add(new FoodTruck(3, "BBQ Paradise", "BBQ", 
-                "Grilled meat and vegetables", 3.1300, 101.6900, 
+
+        sampleTrucks.add(new FoodTruck(3, "BBQ Paradise", "BBQ",
+                "Grilled meat and vegetables", 3.1300, 101.6900,
                 "Kumar", DateTimeUtils.getCurrentISOTime(), "", true));
-        
-        sampleTrucks.add(new FoodTruck(4, "Ice Cream Dreams", "Ice Cream", 
-                "Cool treats for hot days", 3.1450, 101.6950, 
-                "Fatima", DateTimeUtils.getCurrentISOTime(), "", true));
-        
-        sampleTrucks.add(new FoodTruck(5, "Nasi Lemak Corner", "Nasi Lemak", 
-                "Traditional Malaysian breakfast", 3.1350, 101.6800, 
-                "Lee", DateTimeUtils.getCurrentISOTime(), "", true));
-        
-        Log.d(TAG, "Created " + sampleTrucks.size() + " sample food trucks");
+
         displayFoodTrucksOnMap(sampleTrucks);
     }
 
     private void displayFoodTrucksOnMap(List<FoodTruck> foodTrucks) {
-        Log.d(TAG, "Displaying " + foodTrucks.size() + " food trucks on map");
-        
         // Clear existing markers
         mMap.clear();
         markerFoodTruckMap.clear();
 
-        int markersAdded = 0;
         for (FoodTruck truck : foodTrucks) {
             if (truck.isActive()) {
                 LatLng position = new LatLng(truck.getLatitude(), truck.getLongitude());
-                
+
                 // Create custom marker based on food truck type
                 BitmapDescriptor markerIcon = createCustomMarker(truck.getType());
-                
+
                 String snippet = "Type: " + truck.getType() + "\n" +
-                               "Reported by: " + truck.getReportedBy() + "\n" +
-                               "Time: " + DateTimeUtils.formatDateForDisplay(truck.getReportedAt());
-                
-                try {
-                    Marker marker = mMap.addMarker(new MarkerOptions()
-                            .position(position)
-                            .title(truck.getName())
-                            .snippet(snippet)
-                            .icon(markerIcon));
-                    
-                    if (marker != null) {
-                        markerFoodTruckMap.put(marker, truck);
-                        markersAdded++;
-                        Log.d(TAG, "Added marker for: " + truck.getName() + " at " + position.latitude + ", " + position.longitude);
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "Error adding marker for " + truck.getName(), e);
+                        "Reported by: " + truck.getReportedBy() + "\n" +
+                        "Time: " + DateTimeUtils.formatDateForDisplay(truck.getReportedAt());
+
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(position)
+                        .title(truck.getName())
+                        .snippet(snippet)
+                        .icon(markerIcon));
+
+                if (marker != null) {
+                    markerFoodTruckMap.put(marker, truck);
                 }
             }
-        }
-        
-        Log.d(TAG, "Successfully added " + markersAdded + " markers to map");
-        
-        // Move camera to show all markers or default location
-        if (markersAdded > 0) {
-            // Focus on Kuala Lumpur area where the markers are
-            LatLng center = new LatLng(3.140, 101.690);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(center, 13));
         }
     }
 
     private BitmapDescriptor createCustomMarker(String foodType) {
-        // Create a custom marker based on food type
         int color;
         switch (foodType.toLowerCase()) {
             case "mee goreng":
@@ -288,7 +203,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 color = Color.GREEN;
                 break;
         }
-        
         return BitmapDescriptorFactory.defaultMarker(getHueFromColor(color));
     }
 
@@ -311,9 +225,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Clean up marker map
-        if (markerFoodTruckMap != null) {
-            markerFoodTruckMap.clear();
+        if (binding != null) {
+            binding = null;
         }
     }
 }
