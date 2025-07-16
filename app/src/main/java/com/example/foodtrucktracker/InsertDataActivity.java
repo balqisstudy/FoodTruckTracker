@@ -93,12 +93,16 @@ public class InsertDataActivity extends AppCompatActivity implements LocationHel
     public void onLocationReceived(double latitude, double longitude) {
         etLatitude.setText(String.valueOf(latitude));
         etLongitude.setText(String.valueOf(longitude));
-        Toast.makeText(this, "Location updated!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Location updated: " + latitude + ", " + longitude, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLocationError(String error) {
-        Toast.makeText(this, "Error getting location: " + error, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Location error: " + error, Toast.LENGTH_LONG).show();
+        // Set default location (Kuala Lumpur) as fallback
+        etLatitude.setText("3.139");
+        etLongitude.setText("101.6869");
+        Toast.makeText(this, "Using default location (Kuala Lumpur). You can manually edit coordinates.", Toast.LENGTH_LONG).show();
     }
 
     private void submitFoodTruck() {
