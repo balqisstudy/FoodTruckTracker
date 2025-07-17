@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Food Truck Tracker</string>
     <string name="title_activity_maps">Food Truck Map</string>
     
     <!-- Navigation and Menu -->
@@ -63,7 +62,7 @@
     <string name="validation_reporter_required">Reporter name is required</string>
     <string name="validation_invalid_coordinates">Invalid latitude or longitude format</string>
 
-    <string name="app_name">FilterPageExample</string>
+    <string name="app_name">Food Truck Tracker</string>
     <string name="filter_title">Filter</string>
     <string name="back_button_description">Back</string>
     <string name="accepts_offers">Accepts offers</string>

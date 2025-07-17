@@ -56,14 +56,27 @@ public class LocationHelper {
                             if (location != null) {
                                 listener.onLocationReceived(location.getLatitude(), location.getLongitude());
                             } else {
-                                listener.onLocationError("Unable to get current location");
+                                // Try requesting a fresh location if last location is null
+                                requestFreshLocation(listener);
                             }
                         }
                     })
-                    .addOnFailureListener(e -> listener.onLocationError("Error getting location: " + e.getMessage()));
+                    .addOnFailureListener(e -> {
+                        listener.onLocationError("Error getting location: " + e.getMessage());
+                        // Fallback to default location (Kuala Lumpur)
+                        listener.onLocationReceived(3.139, 101.6869);
+                    });
         } catch (SecurityException e) {
             listener.onLocationError("Security exception: " + e.getMessage());
+            // Fallback to default location
+            listener.onLocationReceived(3.139, 101.6869);
         }
+    }
+
+    private void requestFreshLocation(LocationListener listener) {
+        // If no last known location, use default Kuala Lumpur coordinates
+        listener.onLocationReceived(3.139, 101.6869);
+        listener.onLocationError("Using default location (Kuala Lumpur). Please enable GPS for accurate location.");
     }
 
     public static int getLocationPermissionRequestCode() {

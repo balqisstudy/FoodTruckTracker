@@ -6,11 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -92,16 +88,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public android.view.View getInfoContents(Marker marker) {
-                android.view.View view = getLayoutInflater().inflate(R.layout.custom_info_window, null);
-                
-                FoodTruck foodTruck = markerFoodTruckMap.get(marker);
-                if (foodTruck != null) {
-                    // You can customize this layout in custom_info_window.xml
-                    // For now, we'll use the default info window
-                }
-                return view;
-
-            fetchAndDisplayFoodTrucks(mMap);
+                // You can customize this layout in custom_info_window.xml
+                return null;
             }
         });
 
@@ -132,57 +120,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
                     Log.e(TAG, "Failed to load food trucks: " + response.code());
                     Toast.makeText(MapsActivity.this, "Failed to load food trucks", Toast.LENGTH_SHORT).show();
-                    
-                    // Load sample data for demonstration
                     loadSampleData();
                 }
             }
 
-            private void fetchAndDisplayFoodTrucks(GoogleMap mMap) {
-                FoodTruckApiService apiService = ApiClient.getClient().create(FoodTruckApiService.class);
-                Call<List<FoodTruck>> call = apiService.getFoodTrucks();
-            
-                call.enqueue(new Callback<List<FoodTruck>>() {
-                    @Override
-                    public void onResponse(Call<List<FoodTruck>> call, Response<List<FoodTruck>> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            for (FoodTruck truck : response.body()) {
-                                LatLng position = new LatLng(truck.getLatitude(), truck.getLongitude());
-                                mMap.addMarker(new MarkerOptions()
-                                    .position(position)
-                                    .title(truck.getName())
-                                    .snippet(truck.getDescription()));
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<FoodTruck>> call, Throwable t) {
-                        Log.e(TAG, "Error loading food trucks", t);
-                        Toast.makeText(MapsActivity.this, "Error connecting to server", Toast.LENGTH_SHORT).show();
-                        
-                        // Load sample data for demonstration
-                        loadSampleData();
-                    }
-                });
+            @Override
+            public void onFailure(Call<List<FoodTruck>> call, Throwable t) {
+                Log.e(TAG, "Error loading food trucks", t);
+                Toast.makeText(MapsActivity.this, "Error connecting to server", Toast.LENGTH_SHORT).show();
+                loadSampleData();
             }
+        });
+    }
 
     private void loadSampleData() {
         // Sample data for demonstration when server is not available
         java.util.List<FoodTruck> sampleTrucks = new java.util.ArrayList<>();
-        
-        sampleTrucks.add(new FoodTruck(1, "Mee Goreng Express", "Mee Goreng", 
-                "Delicious traditional Mee Goreng", 3.1390, 101.6869, 
+
+        sampleTrucks.add(new FoodTruck(1, "Mee Goreng Express", "Mee Goreng",
+                "Delicious traditional Mee Goreng", 3.1390, 101.6869,
                 "Ahmad", DateTimeUtils.getCurrentISOTime(), "", true));
-        
-        sampleTrucks.add(new FoodTruck(2, "Coffee on Wheels", "Coffee", 
-                "Fresh coffee and pastries", 3.1500, 101.7000, 
+
+        sampleTrucks.add(new FoodTruck(2, "Coffee on Wheels", "Coffee",
+                "Fresh coffee and pastries", 3.1500, 101.7000,
                 "Siti", DateTimeUtils.getCurrentISOTime(), "", true));
-        
-        sampleTrucks.add(new FoodTruck(3, "BBQ Paradise", "BBQ", 
-                "Grilled meat and vegetables", 3.1300, 101.6900, 
+
+        sampleTrucks.add(new FoodTruck(3, "BBQ Paradise", "BBQ",
+                "Grilled meat and vegetables", 3.1300, 101.6900,
                 "Kumar", DateTimeUtils.getCurrentISOTime(), "", true));
-        
+
         displayFoodTrucksOnMap(sampleTrucks);
     }
 
@@ -194,31 +160,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (FoodTruck truck : foodTrucks) {
             if (truck.isActive()) {
                 LatLng position = new LatLng(truck.getLatitude(), truck.getLongitude());
-                
+
                 // Create custom marker based on food truck type
                 BitmapDescriptor markerIcon = createCustomMarker(truck.getType());
-                
+
                 String snippet = "Type: " + truck.getType() + "\n" +
-                               "Reported by: " + truck.getReportedBy() + "\n" +
-                               "Time: " + DateTimeUtils.formatDateForDisplay(truck.getReportedAt());
-                
+                        "Reported by: " + truck.getReportedBy() + "\n" +
+                        "Time: " + DateTimeUtils.formatDateForDisplay(truck.getReportedAt());
+
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(position)
                         .title(truck.getName())
                         .snippet(snippet)
                         .icon(markerIcon));
-                
+
                 if (marker != null) {
                     markerFoodTruckMap.put(marker, truck);
-
-                    setupChipFilter(foodTrucks);
                 }
             }
         }
     }
 
     private BitmapDescriptor createCustomMarker(String foodType) {
-        // Create a custom marker based on food type
         int color;
         switch (foodType.toLowerCase()) {
             case "mee goreng":
@@ -240,16 +203,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 color = Color.GREEN;
                 break;
         }
-        
         return BitmapDescriptorFactory.defaultMarker(getHueFromColor(color));
     }
-
-    Marker marker = mMap.addMarker(new MarkerOptions()
-            .position(position)
-            .title(truck.getName())
-            .snippet(snippet)
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_foodtruck))); // use your drawable here
-
 
     private float getHueFromColor(int color) {
         float[] hsv = new float[3];
