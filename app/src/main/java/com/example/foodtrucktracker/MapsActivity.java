@@ -57,9 +57,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Initialize API service
         apiService = ApiClient.getFoodTruckApiService();
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // Ensure the map fragment is present
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_container);
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.map_container, mapFragment)
+                .commit();
+        }
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
@@ -93,6 +100,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // For now, we'll use the default info window
                 }
                 return view;
+
+            fetchAndDisplayFoodTrucks(mMap);
             }
         });
 
@@ -129,16 +138,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
 
-            @Override
-            public void onFailure(Call<List<FoodTruck>> call, Throwable t) {
-                Log.e(TAG, "Error loading food trucks", t);
-                Toast.makeText(MapsActivity.this, "Error connecting to server", Toast.LENGTH_SHORT).show();
-                
-                // Load sample data for demonstration
-                loadSampleData();
+            private void fetchAndDisplayFoodTrucks(GoogleMap mMap) {
+                FoodTruckApiService apiService = ApiClient.getClient().create(FoodTruckApiService.class);
+                Call<List<FoodTruck>> call = apiService.getFoodTrucks();
+            
+                call.enqueue(new Callback<List<FoodTruck>>() {
+                    @Override
+                    public void onResponse(Call<List<FoodTruck>> call, Response<List<FoodTruck>> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            for (FoodTruck truck : response.body()) {
+                                LatLng position = new LatLng(truck.getLatitude(), truck.getLongitude());
+                                mMap.addMarker(new MarkerOptions()
+                                    .position(position)
+                                    .title(truck.getName())
+                                    .snippet(truck.getDescription()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<FoodTruck>> call, Throwable t) {
+                        Log.e(TAG, "Error loading food trucks", t);
+                        Toast.makeText(MapsActivity.this, "Error connecting to server", Toast.LENGTH_SHORT).show();
+                        
+                        // Load sample data for demonstration
+                        loadSampleData();
+                    }
+                });
             }
-        });
-    }
 
     private void loadSampleData() {
         // Sample data for demonstration when server is not available

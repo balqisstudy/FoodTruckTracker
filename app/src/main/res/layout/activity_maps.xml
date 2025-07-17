@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Root layout for the maps screen, using ConstraintLayout -->
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -44,17 +44,23 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMee"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="Mee Goreng" />
+            android:text="Mee Goreng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipCoffee"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="Coffee" />
+            android:text="Coffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipBBQ"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="BBQ" />
+            android:text="BBQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </com.google.android.material.chip.ChipGroup>
 
     <!-- Floating Location Button -->
@@ -71,7 +77,7 @@
     <!-- A simple TextView to display food truck info (can be expanded into a list/card view) -->
     <TextView
         android:id="@+id/foodTruckInfoTextView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#CCFFFFFF"
         android:padding="16dp"

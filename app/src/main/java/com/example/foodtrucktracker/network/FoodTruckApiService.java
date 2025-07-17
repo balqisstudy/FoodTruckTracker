@@ -13,7 +13,7 @@ import retrofit2.http.Path;
 public interface FoodTruckApiService {
     
     // Base URL should be updated to your actual server
-    String BASE_URL = "http://10.0.2.2:3000/api/"; // For Android emulator
+    String BASE_URL = "http://10.0.2.2:3000/api-foodtrucks"; // For Android emulator
     // String BASE_URL = "http://your-server-domain.com/api/"; // For real device
     
     @GET("foodtrucks")
