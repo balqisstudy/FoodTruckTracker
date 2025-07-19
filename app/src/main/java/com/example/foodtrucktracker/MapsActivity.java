@@ -250,7 +250,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return hsv[0];
     }
 
-    // Filter markers by type
     private void filterMarkersByType(String type) {
         if (mMap == null) return;
         mMap.clear();
