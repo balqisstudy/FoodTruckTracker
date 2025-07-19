@@ -42,8 +42,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private FoodTruckApiService apiService;
     private Map<Marker, FoodTruck> markerFoodTruckMap = new HashMap<>();
-    // Store all loaded food trucks for filtering
-    private List<FoodTruck> allFoodTrucks = new java.util.ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,32 +59,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mapFragment == null) {
             mapFragment = SupportMapFragment.newInstance();
             getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.map_container, mapFragment)
-                    .commit();
+                .beginTransaction()
+                .replace(R.id.map_container, mapFragment)
+                .commit();
         }
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-
-        // Add click handler for the yellow FAB to show Arau, Perlis
-        findViewById(R.id.fab_add_data).setOnClickListener(v -> {
-            if (mMap != null) {
-                LatLng arauPerlis = new LatLng(6.4241, 100.2716);
-                mMap.addMarker(new MarkerOptions()
-                        .position(arauPerlis)
-                        .title("Arau, Perlis")
-                        .snippet("Food Truck Spot in Arau, Perlis"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(arauPerlis, 15));
-            }
-        });
-
-        // Set up chip filters
-        findViewById(R.id.chipMee).setOnClickListener(v -> filterMarkersByType("Mee Goreng"));
-        findViewById(R.id.chipCoffee).setOnClickListener(v -> filterMarkersByType("Coffee"));
-        findViewById(R.id.chipBBQ).setOnClickListener(v -> filterMarkersByType("BBQ"));
-        // Reset filter when clicking outside chips (or you can add a 'Show All' chip/button if you want)
-        findViewById(R.id.chipGroupFilters).setOnClickListener(v -> showAllMarkers());
     }
 
     @Override
@@ -135,9 +114,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onResponse(Call<List<FoodTruck>> call, Response<List<FoodTruck>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    allFoodTrucks = response.body();
-                    displayFoodTrucksOnMap(allFoodTrucks);
-                    Log.d(TAG, "Loaded " + allFoodTrucks.size() + " food trucks");
+                    List<FoodTruck> foodTrucks = response.body();
+                    displayFoodTrucksOnMap(foodTrucks);
+                    Log.d(TAG, "Loaded " + foodTrucks.size() + " food trucks");
                 } else {
                     Log.e(TAG, "Failed to load food trucks: " + response.code());
                     Toast.makeText(MapsActivity.this, "Failed to load food trucks", Toast.LENGTH_SHORT).show();
@@ -170,24 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 "Grilled meat and vegetables", 3.1300, 101.6900,
                 "Kumar", DateTimeUtils.getCurrentISOTime(), "", true));
 
-        // Add more sample trucks for demonstration
-        sampleTrucks.add(new FoodTruck(4, "Nasi Lemak King", "Nasi Lemak",
-                "Best Nasi Lemak in town", 3.1450, 101.6950,
-                "Aminah", DateTimeUtils.getCurrentISOTime(), "", true));
-        sampleTrucks.add(new FoodTruck(5, "Dessert Delight", "Dessert",
-                "Sweet treats and cakes", 3.1420, 101.6920,
-                "Lim", DateTimeUtils.getCurrentISOTime(), "", true));
-        sampleTrucks.add(new FoodTruck(6, "Drinks Hub", "Drinks",
-                "Refreshing beverages", 3.1480, 101.6980,
-                "Raj", DateTimeUtils.getCurrentISOTime(), "", true));
-
-        allFoodTrucks = sampleTrucks;
-        displayFoodTrucksOnMap(allFoodTrucks);
-    }
-
-    // Show all markers (reset filter)
-    private void showAllMarkers() {
-        displayFoodTrucksOnMap(allFoodTrucks);
+        displayFoodTrucksOnMap(sampleTrucks);
     }
 
     private void displayFoodTrucksOnMap(List<FoodTruck> foodTrucks) {
@@ -248,30 +210,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         return hsv[0];
-    }
-
-    // Filter markers by type
-    private void filterMarkersByType(String type) {
-        if (mMap == null) return;
-        mMap.clear();
-        markerFoodTruckMap.clear();
-        for (FoodTruck truck : allFoodTrucks) {
-            if (truck.isActive() && truck.getType().equalsIgnoreCase(type)) {
-                LatLng position = new LatLng(truck.getLatitude(), truck.getLongitude());
-                BitmapDescriptor markerIcon = createCustomMarker(truck.getType());
-                String snippet = "Type: " + truck.getType() + "\n" +
-                        "Reported by: " + truck.getReportedBy() + "\n" +
-                        "Time: " + DateTimeUtils.formatDateForDisplay(truck.getReportedAt());
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(position)
-                        .title(truck.getName())
-                        .snippet(snippet)
-                        .icon(markerIcon));
-                if (marker != null) {
-                    markerFoodTruckMap.put(marker, truck);
-                }
-            }
-        }
     }
 
     @Override
