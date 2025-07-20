@@ -172,8 +172,6 @@
         android:src="@drawable/ic_my_location"
         app:backgroundTint="@android:color/white"
         app:tint="@android:color/black"
-        app:borderWidth="1dp"
-        app:borderColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
