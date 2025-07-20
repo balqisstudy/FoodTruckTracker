@@ -145,21 +145,6 @@
 
 
 
-    <!-- My Location Button -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_my_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="80dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_my_location"
-        app:backgroundTint="#4CAF50"
-        app:tint="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
     <!-- Add Food Truck Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_data"
@@ -173,6 +158,23 @@
         app:backgroundTint="#FFC107"
         app:tint="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- My Location Button - White, positioned at top of zoom controls -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_my_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="120dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_my_location"
+        app:backgroundTint="@android:color/white"
+        app:tint="@android:color/black"
+        app:borderWidth="1dp"
+        app:borderColor="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <!-- Color Legend -->
