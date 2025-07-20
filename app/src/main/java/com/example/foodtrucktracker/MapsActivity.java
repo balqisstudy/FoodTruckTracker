@@ -89,12 +89,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Set up button click handlers
         setupButtonClickHandlers();
 
-        // Set up chip filters
-        findViewById(R.id.chipMee).setOnClickListener(v -> filterMarkersByType("Mee Goreng"));
+        // Set up chip filters - Updated to use simplified categories
+        findViewById(R.id.chipMee).setOnClickListener(v -> filterMarkersByType("Fried Dishes"));
         findViewById(R.id.chipCoffee).setOnClickListener(v -> filterMarkersByType("Coffee"));
-        findViewById(R.id.chipBBQ).setOnClickListener(v -> filterMarkersByType("BBQ"));
-        findViewById(R.id.chipSatay).setOnClickListener(v -> filterMarkersByType("Satay"));
-        findViewById(R.id.chipDrinks).setOnClickListener(v -> filterMarkersByType("Drinks"));
+        findViewById(R.id.chipBBQ).setOnClickListener(v -> filterMarkersByType("Grilled / BBQ"));
+        findViewById(R.id.chipSatay).setOnClickListener(v -> filterMarkersByType("Grilled / BBQ"));
+        findViewById(R.id.chipDrinks).setOnClickListener(v -> filterMarkersByType("Beverage"));
         // Reset filter when clicking outside chips
         findViewById(R.id.chipGroupFilters).setOnClickListener(v -> showAllMarkers());
 
@@ -175,7 +175,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         java.util.List<FoodTruck> sampleTrucks = new java.util.ArrayList<>();
 
         // Central KL - Bukit Bintang Area
-        sampleTrucks.add(new FoodTruck(1, "Mee Goreng Express", "Mee Goreng",
+        sampleTrucks.add(new FoodTruck(1, "Mee Goreng Express", "Fried Dishes",
                 "Delicious traditional Mee Goreng", 3.1390, 101.6869,
                 "Ahmad", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Bukit Bintang", "Near Pavilion Mall", "Jalan Bukit Bintang", "6:00 PM - 11:00 PM", "012-3456789"));
@@ -187,91 +187,91 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 "KLCC", "Near Petronas Twin Towers", "Jalan Ampang", "7:00 AM - 3:00 PM", "012-3456790"));
 
         // Petaling Street Area
-        sampleTrucks.add(new FoodTruck(3, "BBQ Paradise", "BBQ",
+        sampleTrucks.add(new FoodTruck(3, "BBQ Paradise", "Grilled / BBQ",
                 "Grilled meat and vegetables", 3.1300, 101.6900,
                 "Kumar", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Petaling Street", "Near Central Market", "Jalan Petaling", "6:00 PM - 12:00 AM", "012-3456791"));
 
         // Bangsar Area
-        sampleTrucks.add(new FoodTruck(4, "Nasi Lemak King", "Nasi Lemak",
+        sampleTrucks.add(new FoodTruck(4, "Nasi Lemak King", "Traditional / Local",
                 "Best Nasi Lemak in town", 3.1450, 101.6950,
                 "Aminah", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Bangsar", "Near Bangsar Village", "Jalan Telawi", "6:00 AM - 10:00 AM", "012-3456792"));
         
         // Damansara Area
-        sampleTrucks.add(new FoodTruck(5, "Dessert Delight", "Dessert",
+        sampleTrucks.add(new FoodTruck(5, "Dessert Delight", "Desserts & Sweets",
                 "Sweet treats and cakes", 3.1420, 101.6920,
                 "Lim", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Damansara", "Near One Utama", "Jalan Bandar Utama", "2:00 PM - 10:00 PM", "012-3456793"));
         
         // Mont Kiara Area
-        sampleTrucks.add(new FoodTruck(6, "Drinks Hub", "Drinks",
+        sampleTrucks.add(new FoodTruck(6, "Drinks Hub", "Beverage",
                 "Refreshing beverages", 3.1480, 101.6980,
                 "Raj", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Mont Kiara", "Near Solaris Dutamas", "Jalan Solaris", "11:00 AM - 9:00 PM", "012-3456794"));
 
         // Cheras Area
-        sampleTrucks.add(new FoodTruck(7, "Satay Master", "Satay",
+        sampleTrucks.add(new FoodTruck(7, "Satay Master", "Grilled / BBQ",
                 "Authentic Malaysian satay", 3.0800, 101.7200,
                 "Hassan", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Cheras", "Near Taman Connaught", "Jalan Cheras", "5:00 PM - 11:00 PM", "012-3456795"));
 
         // Kepong Area
-        sampleTrucks.add(new FoodTruck(8, "Rojak Delight", "Rojak",
+        sampleTrucks.add(new FoodTruck(8, "Rojak Delight", "Fruits",
                 "Fresh fruit and vegetable rojak", 3.2100, 101.6400,
                 "Mei Ling", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Kepong", "Near Kepong Mall", "Jalan Kepong", "4:00 PM - 10:00 PM", "012-3456796"));
 
         // Wangsa Maju Area
-        sampleTrucks.add(new FoodTruck(9, "Ice Cream Paradise", "Ice Cream",
+        sampleTrucks.add(new FoodTruck(9, "Ice Cream Paradise", "Desserts & Sweets",
                 "Homemade ice cream varieties", 3.1800, 101.7500,
                 "Sarah", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Wangsa Maju", "Near Wangsa Walk", "Jalan Wangsa Delima", "1:00 PM - 9:00 PM", "012-3456797"));
 
         // Setapak Area
-        sampleTrucks.add(new FoodTruck(10, "Nasi Lemak Express", "Nasi Lemak",
+        sampleTrucks.add(new FoodTruck(10, "Nasi Lemak Express", "Traditional / Local",
                 "Traditional nasi lemak with sambal", 3.2000, 101.7000,
                 "Zainab", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Setapak", "Near TAR University", "Jalan Genting Klang", "6:00 AM - 12:00 PM", "012-3456798"));
 
         // Gombak Area
-        sampleTrucks.add(new FoodTruck(11, "Mamak Corner", "Other",
+        sampleTrucks.add(new FoodTruck(11, "Mamak Corner", "Street Food",
                 "Indian Muslim cuisine", 3.2500, 101.6800,
                 "Ravi", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Gombak", "Near Gombak LRT", "Jalan Gombak", "24 Hours", "012-3456799"));
 
         // Selayang Area
-        sampleTrucks.add(new FoodTruck(12, "Durian King", "Other",
+        sampleTrucks.add(new FoodTruck(12, "Durian King", "Fruits",
                 "Fresh durian and local fruits", 3.2800, 101.6500,
                 "Ah Chong", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Selayang", "Near Selayang Mall", "Jalan Selayang", "10:00 AM - 8:00 PM", "012-3456800"));
 
         // Ampang Area
-        sampleTrucks.add(new FoodTruck(13, "Teh Tarik Corner", "Drinks",
+        sampleTrucks.add(new FoodTruck(13, "Teh Tarik Corner", "Non-Coffee & Tea",
                 "Traditional Malaysian teh tarik", 3.1600, 101.7600,
                 "Khalid", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Ampang", "Near Ampang Point", "Jalan Ampang", "7:00 AM - 11:00 PM", "012-3456801"));
 
         // Sri Hartamas Area
-        sampleTrucks.add(new FoodTruck(14, "Sushi Express", "Other",
+        sampleTrucks.add(new FoodTruck(14, "Sushi Express", "Asian Cuisine",
                 "Fresh sushi and Japanese cuisine", 3.1700, 101.6500,
                 "Yuki", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Sri Hartamas", "Near Hartamas Shopping Centre", "Jalan Sri Hartamas", "11:00 AM - 10:00 PM", "012-3456802"));
 
         // TTDI Area
-        sampleTrucks.add(new FoodTruck(15, "Pasta Mobile", "Other",
+        sampleTrucks.add(new FoodTruck(15, "Pasta Mobile", "Western Food",
                 "Italian pasta and pizza", 3.1400, 101.6400,
                 "Marco", DateTimeUtils.getCurrentISOTime(), "", true,
                 "TTDI", "Near TTDI Park", "Jalan Tun Dr Ismail", "6:00 PM - 11:00 PM", "012-3456803"));
 
         // Mutiara Damansara Area
-        sampleTrucks.add(new FoodTruck(16, "Burger Joint", "Other",
+        sampleTrucks.add(new FoodTruck(16, "Burger Joint", "Western Food",
                 "Gourmet burgers and fries", 3.1500, 101.5800,
                 "Mike", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Mutiara Damansara", "Near The Curve", "Jalan PJU 7/3", "12:00 PM - 12:00 AM", "012-3456804"));
 
         // Bandar Utama Area
-        sampleTrucks.add(new FoodTruck(17, "Smoothie Bar", "Drinks",
+        sampleTrucks.add(new FoodTruck(17, "Smoothie Bar", "Beverage",
                 "Fresh fruit smoothies", 3.1400, 101.5900,
                 "Lisa", DateTimeUtils.getCurrentISOTime(), "", true,
                 "Bandar Utama", "Near 1 Utama", "Jalan Bandar Utama", "10:00 AM - 8:00 PM", "012-3456805"));
@@ -582,46 +582,62 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private BitmapDescriptor createCustomMarker(String foodType) {
         int color;
         
+        // Debug logging to see what food types are being received
+        Log.d(TAG, "Creating marker for food type: '" + foodType + "'");
+        
         // Simplified Food Types with Marker Colors - Match exact category names from admin dashboard
         switch (foodType.toLowerCase()) {
             case "fried dishes":
                 color = Color.parseColor("#FFD700"); // Yellow #FFD700
+                Log.d(TAG, "Matched 'fried dishes' -> Yellow");
                 break;
             case "grilled / bbq":
                 color = Color.parseColor("#FF4500"); // Red #FF4500
+                Log.d(TAG, "Matched 'grilled / bbq' -> Red");
                 break;
             case "western food":
                 color = Color.parseColor("#8B0000"); // Dark Red #8B0000
+                Log.d(TAG, "Matched 'western food' -> Dark Red");
                 break;
             case "asian cuisine":
                 color = Color.parseColor("#9370DB"); // Purple #9370DB
+                Log.d(TAG, "Matched 'asian cuisine' -> Purple");
                 break;
             case "traditional / local":
                 color = Color.parseColor("#FF8C00"); // Dark Orange #FF8C00
+                Log.d(TAG, "Matched 'traditional / local' -> Dark Orange");
                 break;
             case "desserts & sweets":
                 color = Color.parseColor("#FF69B4"); // Pink #FF69B4
+                Log.d(TAG, "Matched 'desserts & sweets' -> Pink");
                 break;
             case "fruits":
                 color = Color.parseColor("#32CD32"); // Green #32CD32
+                Log.d(TAG, "Matched 'fruits' -> Green");
                 break;
             case "seafood":
                 color = Color.parseColor("#20B2AA"); // Teal #20B2AA
+                Log.d(TAG, "Matched 'seafood' -> Teal");
                 break;
             case "street food":
                 color = Color.parseColor("#4169E1"); // Deep Blue #4169E1
+                Log.d(TAG, "Matched 'street food' -> Deep Blue");
                 break;
             case "coffee":
                 color = Color.parseColor("#6F4E37"); // Coffee Brown #6F4E37
+                Log.d(TAG, "Matched 'coffee' -> Coffee Brown");
                 break;
             case "non-coffee & tea":
                 color = Color.parseColor("#98FB98"); // Matcha Green #98FB98
+                Log.d(TAG, "Matched 'non-coffee & tea' -> Matcha Green");
                 break;
             case "beverage":
                 color = Color.parseColor("#00BFFF"); // Sky Blue #00BFFF
+                Log.d(TAG, "Matched 'beverage' -> Sky Blue");
                 break;
             default:
                 color = Color.GRAY; // Default gray for unknown types
+                Log.d(TAG, "No match found for '" + foodType + "' -> Default Gray");
                 break;
         }
         

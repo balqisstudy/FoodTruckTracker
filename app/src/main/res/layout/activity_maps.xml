@@ -45,7 +45,7 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMee"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="Mee Goreng"
+            android:text="Fried Dishes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -59,21 +59,21 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/chipBBQ"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="BBQ"
+            android:text="Grilled / BBQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipSatay"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="Satay"
+            android:text="Traditional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipDrinks"
             style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:text="Drinks"
+            android:text="Beverage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </com.google.android.material.chip.ChipGroup>
