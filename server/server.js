@@ -81,7 +81,7 @@ function insertSampleData() {
                 // Central KL - Bukit Bintang Area
                 {
                     name: 'Mee Goreng Express',
-                    type: 'Mee Goreng',
+                    type: 'Fried Dishes',
                     description: 'Delicious traditional Mee Goreng',
                     latitude: 3.1390,
                     longitude: 101.6869,
@@ -111,7 +111,7 @@ function insertSampleData() {
                 // Petaling Street Area
                 {
                     name: 'BBQ Paradise',
-                    type: 'BBQ Sticks',
+                    type: 'Grilled / BBQ',
                     description: 'Grilled meat and vegetables',
                     latitude: 3.1300,
                     longitude: 101.6900,
@@ -126,7 +126,7 @@ function insertSampleData() {
                 // Bangsar Area
                 {
                     name: 'Nasi Lemak King',
-                    type: 'Nasi Lemak',
+                    type: 'Traditional / Local',
                     description: 'Best Nasi Lemak in town',
                     latitude: 3.1450,
                     longitude: 101.6950,
@@ -141,7 +141,7 @@ function insertSampleData() {
                 // Damansara Area
                 {
                     name: 'Dessert Delight',
-                    type: 'Cakes',
+                    type: 'Desserts & Sweets',
                     description: 'Sweet treats and cakes',
                     latitude: 3.1420,
                     longitude: 101.6920,
@@ -156,7 +156,7 @@ function insertSampleData() {
                 // Mont Kiara Area
                 {
                     name: 'Drinks Hub',
-                    type: 'Boba Tea',
+                    type: 'Beverage',
                     description: 'Refreshing beverages',
                     latitude: 3.1480,
                     longitude: 101.6980,
@@ -171,7 +171,7 @@ function insertSampleData() {
                 // Cheras Area
                 {
                     name: 'Satay Master',
-                    type: 'Satay',
+                    type: 'Grilled / BBQ',
                     description: 'Authentic Malaysian satay',
                     latitude: 3.0800,
                     longitude: 101.7200,
@@ -186,7 +186,7 @@ function insertSampleData() {
                 // Kepong Area
                 {
                     name: 'Rojak Delight',
-                    type: 'Fruit Rojak',
+                    type: 'Fruits',
                     description: 'Fresh fruit and vegetable rojak',
                     latitude: 3.2100,
                     longitude: 101.6400,
@@ -201,7 +201,7 @@ function insertSampleData() {
                 // Wangsa Maju Area
                 {
                     name: 'Ice Cream Paradise',
-                    type: 'Ice Cream',
+                    type: 'Desserts & Sweets',
                     description: 'Homemade ice cream varieties',
                     latitude: 3.1800,
                     longitude: 101.7500,
@@ -216,7 +216,7 @@ function insertSampleData() {
                 // Setapak Area
                 {
                     name: 'Nasi Lemak Express',
-                    type: 'Nasi Lemak',
+                    type: 'Traditional / Local',
                     description: 'Traditional nasi lemak with sambal',
                     latitude: 3.2000,
                     longitude: 101.7000,
@@ -231,7 +231,7 @@ function insertSampleData() {
                 // Gombak Area
                 {
                     name: 'Mamak Corner',
-                    type: 'Other',
+                    type: 'Street Food',
                     description: 'Indian Muslim cuisine',
                     latitude: 3.2500,
                     longitude: 101.6800,
@@ -246,7 +246,7 @@ function insertSampleData() {
                 // Selayang Area
                 {
                     name: 'Durian King',
-                    type: 'Other',
+                    type: 'Fruits',
                     description: 'Fresh durian and local fruits',
                     latitude: 3.2800,
                     longitude: 101.6500,
@@ -261,7 +261,7 @@ function insertSampleData() {
                 // Ampang Area
                 {
                     name: 'Teh Tarik Corner',
-                    type: 'Drinks',
+                    type: 'Non-Coffee & Tea',
                     description: 'Traditional Malaysian teh tarik',
                     latitude: 3.1600,
                     longitude: 101.7600,
@@ -276,7 +276,7 @@ function insertSampleData() {
                 // Sri Hartamas Area
                 {
                     name: 'Sushi Express',
-                    type: 'Other',
+                    type: 'Asian Cuisine',
                     description: 'Fresh sushi and Japanese cuisine',
                     latitude: 3.1700,
                     longitude: 101.6500,
@@ -291,7 +291,7 @@ function insertSampleData() {
                 // TTDI Area
                 {
                     name: 'Pasta Mobile',
-                    type: 'Other',
+                    type: 'Western Food',
                     description: 'Italian pasta and pizza',
                     latitude: 3.1400,
                     longitude: 101.6400,
@@ -306,7 +306,7 @@ function insertSampleData() {
                 // Mutiara Damansara Area
                 {
                     name: 'Burger Joint',
-                    type: 'Other',
+                    type: 'Western Food',
                     description: 'Gourmet burgers and fries',
                     latitude: 3.1500,
                     longitude: 101.5800,
@@ -321,7 +321,7 @@ function insertSampleData() {
                 // Bandar Utama Area
                 {
                     name: 'Smoothie Bar',
-                    type: 'Drinks',
+                    type: 'Beverage',
                     description: 'Fresh fruit smoothies',
                     latitude: 3.1400,
                     longitude: 101.5900,
@@ -336,7 +336,7 @@ function insertSampleData() {
                 // Sunway Area
                 {
                     name: 'Korean BBQ',
-                    type: 'BBQ',
+                    type: 'Grilled / BBQ',
                     description: 'Korean barbecue and kimchi',
                     latitude: 3.0700,
                     longitude: 101.6000,
@@ -351,7 +351,7 @@ function insertSampleData() {
                 // Puchong Area
                 {
                     name: 'Dim Sum Express',
-                    type: 'Other',
+                    type: 'Asian Cuisine',
                     description: 'Steamed dim sum and tea',
                     latitude: 3.0200,
                     longitude: 101.6200,
@@ -366,7 +366,7 @@ function insertSampleData() {
                 // Seri Kembangan Area
                 {
                     name: 'Roti Canai Master',
-                    type: 'Other',
+                    type: 'Traditional / Local',
                     description: 'Flaky roti canai with curry',
                     latitude: 3.0300,
                     longitude: 101.7000,
@@ -381,7 +381,7 @@ function insertSampleData() {
                 // Kajang Area
                 {
                     name: 'Satay Kajang',
-                    type: 'Satay',
+                    type: 'Grilled / BBQ',
                     description: 'Famous Kajang satay',
                     latitude: 2.9900,
                     longitude: 101.7900,
@@ -396,7 +396,7 @@ function insertSampleData() {
                 // Semenyih Area
                 {
                     name: 'Durian Farm',
-                    type: 'Other',
+                    type: 'Fruits',
                     description: 'Fresh durian from farm',
                     latitude: 2.9500,
                     longitude: 101.8500,
@@ -411,7 +411,7 @@ function insertSampleData() {
                 // Cyberjaya Area
                 {
                     name: 'Tech Food Hub',
-                    type: 'Other',
+                    type: 'Asian Cuisine',
                     description: 'Modern fusion cuisine',
                     latitude: 2.9200,
                     longitude: 101.6500,
@@ -426,7 +426,7 @@ function insertSampleData() {
                 // Putrajaya Area
                 {
                     name: 'Government Canteen',
-                    type: 'Other',
+                    type: 'Traditional / Local',
                     description: 'Local Malaysian cuisine',
                     latitude: 2.9400,
                     longitude: 101.6900,
@@ -441,7 +441,7 @@ function insertSampleData() {
                 // Shah Alam Area
                 {
                     name: 'Shah Alam Delights',
-                    type: 'Other',
+                    type: 'Traditional / Local',
                     description: 'Local Shah Alam specialties',
                     latitude: 3.0800,
                     longitude: 101.5200,
