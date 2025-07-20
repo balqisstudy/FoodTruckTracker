@@ -35,9 +35,9 @@ server/node_modules/
 server/.env
 
 # Database files - COMMENTED OUT TO ALLOW SHARING VIA GIT
-*.db
-*.sqlite
-*.sqlite3
+#*.db
+#*.sqlite
+#*.sqlite3
 
 # Logs
 logs
