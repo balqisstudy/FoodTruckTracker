@@ -183,6 +183,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Log.d(TAG, "Loading food trucks from server...");
         Log.d(TAG, "API Base URL: " + ApiClient.getClient().baseUrl());
         
+        // Try main endpoint first, then fallback to active endpoint
         Call<List<FoodTruck>> call = apiService.getAllFoodTrucks();
         call.enqueue(new Callback<List<FoodTruck>>() {
             @Override
@@ -195,8 +196,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Toast.makeText(MapsActivity.this, "✅ Loaded " + allFoodTrucks.size() + " food trucks", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         Log.e(TAG, "Error processing food truck data: " + e.getMessage(), e);
-                        Toast.makeText(MapsActivity.this, "❌ Error processing data - Using sample data", Toast.LENGTH_LONG).show();
-                        loadSampleData();
+                        Toast.makeText(MapsActivity.this, "❌ Error processing data - Trying alternative endpoint", Toast.LENGTH_SHORT).show();
+                        // Try alternative endpoint
+                        loadActiveFoodTrucks();
                     }
                 } else {
                     Log.e(TAG, "Server responded with error code: " + response.code() + ", message: " + response.message());
@@ -208,8 +210,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.e(TAG, "Could not read error body", e);
                         }
                     }
-                    Toast.makeText(MapsActivity.this, "❌ Server error: " + response.code() + " - Using sample data", Toast.LENGTH_LONG).show();
-                    loadSampleData();
+                    Toast.makeText(MapsActivity.this, "❌ Server error: " + response.code() + " - Trying alternative endpoint", Toast.LENGTH_SHORT).show();
+                    loadActiveFoodTrucks();
                 }
             }
 
@@ -228,7 +230,40 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else {
                     errorMessage += t.getClass().getSimpleName() + ": " + t.getMessage();
                 }
-                Toast.makeText(MapsActivity.this, errorMessage + " - Using sample data", Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity.this, errorMessage + " - Trying alternative endpoint", Toast.LENGTH_SHORT).show();
+                loadActiveFoodTrucks();
+            }
+        });
+    }
+    
+    private void loadActiveFoodTrucks() {
+        Log.d(TAG, "Trying alternative endpoint: /api/foodtrucks/active");
+        Call<List<FoodTruck>> call = apiService.getActiveFoodTrucks();
+        call.enqueue(new Callback<List<FoodTruck>>() {
+            @Override
+            public void onResponse(Call<List<FoodTruck>> call, Response<List<FoodTruck>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        allFoodTrucks = response.body();
+                        displayFoodTrucksOnMap(allFoodTrucks);
+                        Log.d(TAG, "Successfully loaded " + allFoodTrucks.size() + " active food trucks from server");
+                        Toast.makeText(MapsActivity.this, "✅ Loaded " + allFoodTrucks.size() + " active food trucks", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error processing active food truck data: " + e.getMessage(), e);
+                        Toast.makeText(MapsActivity.this, "❌ Both endpoints failed - Using sample data", Toast.LENGTH_LONG).show();
+                        loadSampleData();
+                    }
+                } else {
+                    Log.e(TAG, "Active endpoint error code: " + response.code());
+                    Toast.makeText(MapsActivity.this, "❌ Active endpoint failed - Using sample data", Toast.LENGTH_LONG).show();
+                    loadSampleData();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FoodTruck>> call, Throwable t) {
+                Log.e(TAG, "Active endpoint network error: " + t.getMessage(), t);
+                Toast.makeText(MapsActivity.this, "❌ Both endpoints failed - Using sample data", Toast.LENGTH_LONG).show();
                 loadSampleData();
             }
         });
