@@ -173,7 +173,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Developer 2: Nurul Nabilah Binti Muhammad Khairi"
+                            android:text="Developer 2: Nur Nabilah Binti Muhammad Khairi"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -296,7 +296,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        android:text="Developed for Mobile Application Development Course"
+                        android:text="Developed for Mobile Technology and development course"
                         android:textColor="@color/text_secondary"
                         android:textSize="14sp" />
 
