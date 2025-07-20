@@ -710,10 +710,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Toast.makeText(this, "Moved to your location", Toast.LENGTH_SHORT).show();
                     } else {
                         // If location is not available, show a message
-                        Toast.makeText(this, "Getting your location...", Toast.LENGTH_SHORT).show();
-                        // Fallback to default location
-                        LatLng defaultLocation = new LatLng(3.139, 101.6869);
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
+                        Toast.makeText(this, "Location not available. Please check your GPS settings.", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     // Enable my location if not enabled
