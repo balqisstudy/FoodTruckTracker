@@ -128,16 +128,18 @@ FoodTruckTracker/
 ```
 
 ## Food Truck Types
-- Mee Goreng
+- Fried Dishes
+- Grilled / BBQ
+- Western Food
+- Asian Cuisine
+- Traditional / Local
+- Desserts & Sweets
+- Fruits
+- Seafood
+- Street Food
 - Coffee
-- BBQ
-- Dessert
-- Drinks
-- Nasi Lemak
-- Rojak
-- Satay
-- Ice Cream
-- Other
+- Non-Coffee & Tea
+- Beverage
 
 ## Demo Video
 [Add link to your YouTube demonstration video]

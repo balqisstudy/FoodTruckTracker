@@ -80,8 +80,21 @@ public class InsertDataActivity extends AppCompatActivity implements LocationHel
         btnGetLocation = findViewById(R.id.btn_get_location);
         btnSubmit = findViewById(R.id.btn_submit);
 
-        // Set up spinner with food truck types
-        String[] foodTypes = {"Mee Goreng", "Coffee", "BBQ", "Dessert", "Drinks", "Nasi Lemak", "Rojak", "Satay", "Ice Cream", "Other"};
+        // Set up spinner with food truck types (standardized 12 categories)
+        String[] foodTypes = {
+            "Fried Dishes",
+            "Grilled / BBQ", 
+            "Western Food",
+            "Asian Cuisine",
+            "Traditional / Local",
+            "Desserts & Sweets",
+            "Fruits",
+            "Seafood",
+            "Street Food",
+            "Coffee",
+            "Non-Coffee & Tea",
+            "Beverage"
+        };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, foodTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
@@ -117,93 +130,129 @@ public class InsertDataActivity extends AppCompatActivity implements LocationHel
             return;
         }
 
-        // Create FoodTruck object
-        FoodTruck foodTruck = new FoodTruck();
-        foodTruck.setName(etName.getText().toString().trim());
-        foodTruck.setType(spinnerType.getSelectedItem().toString());
-        foodTruck.setDescription(etDescription.getText().toString().trim());
-        foodTruck.setLatitude(Double.parseDouble(etLatitude.getText().toString().trim()));
-        foodTruck.setLongitude(Double.parseDouble(etLongitude.getText().toString().trim()));
-        foodTruck.setReportedBy(etReportedBy.getText().toString().trim());
-        foodTruck.setReportedAt(DateTimeUtils.getCurrentISOTime());
-        foodTruck.setActive(true);
-        foodTruck.setArea(etArea.getText().toString().trim());
-        foodTruck.setLandmark(etLandmark.getText().toString().trim());
-        foodTruck.setStreetAddress(etStreetAddress.getText().toString().trim());
-        foodTruck.setOperatingHours(etOperatingHours.getText().toString().trim());
-        foodTruck.setContactNumber(etContactNumber.getText().toString().trim());
+        try {
+            // Create FoodTruck object
+            FoodTruck foodTruck = new FoodTruck();
+            foodTruck.setName(etName.getText().toString().trim());
+            foodTruck.setType(spinnerType.getSelectedItem().toString());
+            foodTruck.setDescription(etDescription.getText().toString().trim());
+            foodTruck.setLatitude(Double.parseDouble(etLatitude.getText().toString().trim()));
+            foodTruck.setLongitude(Double.parseDouble(etLongitude.getText().toString().trim()));
+            foodTruck.setReportedBy(etReportedBy.getText().toString().trim());
+            foodTruck.setReportedAt(DateTimeUtils.getCurrentISOTime());
+            foodTruck.setActive(true);
+            foodTruck.setArea(etArea.getText().toString().trim());
+            foodTruck.setLandmark(etLandmark.getText().toString().trim());
+            foodTruck.setStreetAddress(etStreetAddress.getText().toString().trim());
+            foodTruck.setOperatingHours(etOperatingHours.getText().toString().trim());
+            foodTruck.setContactNumber(etContactNumber.getText().toString().trim());
 
-        // Submit to server
-        Call<FoodTruck> call = apiService.createFoodTruck(foodTruck);
-        call.enqueue(new Callback<FoodTruck>() {
-            @Override
-            public void onResponse(Call<FoodTruck> call, Response<FoodTruck> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(InsertDataActivity.this, "Food truck added successfully!", Toast.LENGTH_SHORT).show();
-                    finish(); // Close activity
-                } else {
-                    Toast.makeText(InsertDataActivity.this, "Failed to add food truck", Toast.LENGTH_SHORT).show();
+            // Show loading state
+            btnSubmit.setEnabled(false);
+            btnSubmit.setText("Submitting...");
+
+            // Submit to server
+            Call<FoodTruck> call = apiService.createFoodTruck(foodTruck);
+            call.enqueue(new Callback<FoodTruck>() {
+                @Override
+                public void onResponse(Call<FoodTruck> call, Response<FoodTruck> response) {
+                    // Reset button state
+                    btnSubmit.setEnabled(true);
+                    btnSubmit.setText("Submit Food Truck");
+                    
+                    if (response.isSuccessful()) {
+                        Toast.makeText(InsertDataActivity.this, "Food truck added successfully!", Toast.LENGTH_SHORT).show();
+                        finish(); // Close activity
+                    } else {
+                        String errorMsg = "Failed to add food truck. Server error: " + response.code();
+                        if (response.errorBody() != null) {
+                            try {
+                                errorMsg += " - " + response.errorBody().string();
+                            } catch (Exception e) {
+                                errorMsg += " - " + e.getMessage();
+                            }
+                        }
+                        Toast.makeText(InsertDataActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<FoodTruck> call, Throwable t) {
-                Toast.makeText(InsertDataActivity.this, "Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<FoodTruck> call, Throwable t) {
+                    // Reset button state
+                    btnSubmit.setEnabled(true);
+                    btnSubmit.setText("Submit Food Truck");
+                    
+                    String errorMsg = "Network error: " + t.getMessage();
+                    if (t.getCause() != null) {
+                        errorMsg += "\nCause: " + t.getCause().getMessage();
+                    }
+                    Toast.makeText(InsertDataActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please enter valid latitude and longitude values", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error creating food truck: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean validateInput() {
         if (etName.getText().toString().trim().isEmpty()) {
             etName.setError("Name is required");
+            etName.requestFocus();
             return false;
         }
 
         if (etDescription.getText().toString().trim().isEmpty()) {
             etDescription.setError("Description is required");
+            etDescription.requestFocus();
             return false;
         }
 
         if (etLatitude.getText().toString().trim().isEmpty()) {
             etLatitude.setError("Latitude is required");
+            etLatitude.requestFocus();
             return false;
         }
 
         if (etLongitude.getText().toString().trim().isEmpty()) {
             etLongitude.setError("Longitude is required");
+            etLongitude.requestFocus();
             return false;
         }
 
         if (etReportedBy.getText().toString().trim().isEmpty()) {
             etReportedBy.setError("Reporter name is required");
+            etReportedBy.requestFocus();
             return false;
         }
 
+        // Area is required for better organization
         if (etArea.getText().toString().trim().isEmpty()) {
-            etArea.setError("Area is required");
+            etArea.setError("Area is required (e.g., KLCC, Bukit Bintang)");
+            etArea.requestFocus();
             return false;
         }
 
-        if (etLandmark.getText().toString().trim().isEmpty()) {
-            etLandmark.setError("Landmark is required");
-            return false;
-        }
-
-        if (etStreetAddress.getText().toString().trim().isEmpty()) {
-            etStreetAddress.setError("Street address is required");
-            return false;
-        }
-
-        if (etOperatingHours.getText().toString().trim().isEmpty()) {
-            etOperatingHours.setError("Operating hours are required");
-            return false;
-        }
-
+        // Validate coordinates
         try {
-            Double.parseDouble(etLatitude.getText().toString().trim());
-            Double.parseDouble(etLongitude.getText().toString().trim());
+            double lat = Double.parseDouble(etLatitude.getText().toString().trim());
+            double lng = Double.parseDouble(etLongitude.getText().toString().trim());
+            
+            // Basic range validation for Malaysia coordinates
+            if (lat < 1.0 || lat > 7.5) {
+                etLatitude.setError("Latitude should be between 1.0 and 7.5 for Malaysia");
+                etLatitude.requestFocus();
+                return false;
+            }
+            
+            if (lng < 99.0 || lng > 120.0) {
+                etLongitude.setError("Longitude should be between 99.0 and 120.0 for Malaysia");
+                etLongitude.requestFocus();
+                return false;
+            }
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid latitude or longitude format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid latitude or longitude format. Please enter valid decimal numbers.", Toast.LENGTH_LONG).show();
             return false;
         }
 
