@@ -130,7 +130,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Developer 1: [Your Name]"
+                            android:text="Developer 1: Nurul Athirah Binti Amran"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -138,14 +138,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Student ID: [Your Student ID]"
+                            android:text="Student ID: 2023142825"
                             android:textColor="@color/text_secondary"
                             android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Programme: [Your Programme Code]"
+                            android:text="Programme: CDCS240"
                             android:textColor="@color/text_secondary"
                             android:textSize="14sp" />
 
@@ -153,7 +153,7 @@
                             android:id="@+id/tv_developer1_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="developer1@example.com"
+                            android:text="athirah632@egmail.com"
                             android:textColor="@color/primary_color"
                             android:textSize="14sp"
                             android:clickable="true"
@@ -173,7 +173,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Developer 2: [Partner Name]"
+                            android:text="Developer 2: Nurul Nabilah Binti Muhammad Khairi"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -181,14 +181,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Student ID: [Partner Student ID]"
+                            android:text="Student ID: 2023104699"
                             android:textColor="@color/text_secondary"
                             android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Programme: [Partner Programme Code]"
+                            android:text="Programme: CDCS240"
                             android:textColor="@color/text_secondary"
                             android:textSize="14sp" />
 
@@ -196,7 +196,50 @@
                             android:id="@+id/tv_developer2_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="developer2@example.com"
+                            android:text="nurnabilahkh@gmail.com"
+                            android:textColor="@color/primary_color"
+                            android:textSize="14sp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:padding="4dp" />
+
+                    </LinearLayout>
+
+                    <!-- Developer 3 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Developer 3: Siti Balqis Binti Muhammad Saiedi"
+                            android:textColor="@color/text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Student ID: 2023114587"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Programme: CDCS240"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_developer3_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="balqisstudy@gmail.com"
                             android:textColor="@color/primary_color"
                             android:textSize="14sp"
                             android:clickable="true"
@@ -209,7 +252,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Group: [Your Group Number]"
+                        android:text="Group: RCDCS2405A"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -270,7 +313,7 @@
                         android:id="@+id/tv_github_url"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="https://github.com/yourusername/FoodTruckTracker2"
+                        android:text="https://github.com/balqisstudy/FoodTruckTracker"
                         android:textColor="@color/primary_color"
                         android:textSize="14sp"
                         android:clickable="true"

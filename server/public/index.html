@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Food Truck Tracker - Admin Panel</title>
     <style>
         * {
@@ -195,6 +198,47 @@
             color: #666;
             margin-top: 0.5rem;
         }
+
+        .subsection {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        .subsection h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .data-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .summary-item .label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .summary-item .value {
+            color: #333;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -218,6 +262,26 @@
                 <div class="stat-number" id="totalReports">0</div>
                 <div class="stat-label">Total Reports</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayReports">0</div>
+                <div class="stat-label">Today's Reports</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="uniqueReporters">0</div>
+                <div class="stat-label">Unique Reporters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgReportsPerDay">0</div>
+                <div class="stat-label">Avg Reports/Day</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalDataPoints">0</div>
+                <div class="stat-label">Total Data Points</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="dataCompleteness">0%</div>
+                <div class="stat-label">Data Completeness</div>
+            </div>
         </div>
         
         <!-- Add/Update Food Truck Form -->
@@ -237,16 +301,46 @@
                         <label for="type">Food Truck Type *</label>
                         <select id="type" name="type" required>
                             <option value="">Select Type</option>
-                            <option value="Mee Goreng">Mee Goreng</option>
+                            
+                            <!-- ===== SIMPLIFIED FOOD TYPE SYSTEM ===== -->
+                            
+                            <!-- 🍜 FRIED DISHES - Yellow #FFD700 -->
+                            <option value="Fried Dishes">Fried Dishes</option>
+                            
+                            <!-- 🔥 GRILLED / BBQ - Red #FF4500 -->
+                            <option value="Grilled / BBQ">Grilled / BBQ</option>
+                            
+                            <!-- 🍕 WESTERN FOOD - Dark Red #8B0000 -->
+                            <option value="Western Food">Western Food</option>
+                            
+                            <!-- 🥢 ASIAN CUISINE - Purple #9370DB -->
+                            <option value="Asian Cuisine">Asian Cuisine</option>
+                            
+                            <!-- 🥘 TRADITIONAL / LOCAL - Dark Orange #FF8C00 -->
+                            <option value="Traditional / Local">Traditional / Local</option>
+                            
+                            <!-- 🧁 DESSERTS & SWEETS - Pink #FF69B4 -->
+                            <option value="Desserts & Sweets">Desserts & Sweets</option>
+                            
+                            <!-- 🥗 FRUITS - Green #32CD32 -->
+                            <option value="Fruits">Fruits</option>
+                            
+                            <!-- 🦐 SEAFOOD - Teal #20B2AA -->
+                            <option value="Seafood">Seafood</option>
+                            
+                            <!-- 🚚 STREET FOOD - Deep Blue #4169E1 -->
+                            <option value="Street Food">Street Food</option>
+                            
+                            <!-- ===== DRINK TYPES WITH MARKER COLORS ===== -->
+                            
+                            <!-- ☕ COFFEE - Coffee Brown #6F4E37 -->
                             <option value="Coffee">Coffee</option>
-                            <option value="BBQ">BBQ</option>
-                            <option value="Dessert">Dessert</option>
-                            <option value="Drinks">Drinks</option>
-                            <option value="Nasi Lemak">Nasi Lemak</option>
-                            <option value="Rojak">Rojak</option>
-                            <option value="Satay">Satay</option>
-                            <option value="Ice Cream">Ice Cream</option>
-                            <option value="Other">Other</option>
+                            
+                            <!-- 🍵 NON-COFFEE & TEA - Matcha Green #98FB98 -->
+                            <option value="Non-Coffee & Tea">Non-Coffee & Tea</option>
+                            
+                            <!-- 🥤 BEVERAGE - Sky Blue #00BFFF -->
+                            <option value="Beverage">Beverage</option>
                         </select>
                     </div>
                 </div>
@@ -264,6 +358,33 @@
                     <div class="form-group">
                         <label for="longitude">Longitude *</label>
                         <input type="number" id="longitude" name="longitude" step="any" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="area">Area</label>
+                        <input type="text" id="area" name="area" placeholder="e.g., Bukit Bintang, KLCC">
+                    </div>
+                    <div class="form-group">
+                        <label for="landmark">Landmark</label>
+                        <input type="text" id="landmark" name="landmark" placeholder="e.g., Near Pavilion Mall">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="streetAddress">Street Address</label>
+                    <input type="text" id="streetAddress" name="streetAddress" placeholder="e.g., Jalan Bukit Bintang">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="operatingHours">Operating Hours</label>
+                        <input type="text" id="operatingHours" name="operatingHours" placeholder="e.g., 6:00 PM - 11:00 PM">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactNumber">Contact Number</label>
+                        <input type="text" id="contactNumber" name="contactNumber" placeholder="e.g., 012-3456789">
                     </div>
                 </div>
                 
@@ -302,7 +423,10 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Location</th>
+                        <th>Area</th>
+                        <th>Landmark</th>
+                        <th>Operating Hours</th>
+                        <th>Contact</th>
                         <th>Reported By</th>
                         <th>Reported At</th>
                         <th>Status</th>
@@ -314,11 +438,234 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- User Activity & Reporting Analytics -->
+        <div class="section">
+            <h2>👥 User Activity & Reporting Analytics</h2>
+            
+            <!-- Top Reporters -->
+            <div class="subsection">
+                <h3>🏆 Top Reporters</h3>
+                <table class="table" id="topReportersTable">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Reporter Name</th>
+                            <th>Reports Count</th>
+                            <th>Last Report</th>
+                            <th>Areas Covered</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topReportersTableBody">
+                        <!-- Top reporters will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Popular Areas -->
+            <div class="subsection">
+                <h3>📍 Popular Areas</h3>
+                <div id="popularAreasChart">
+                    <!-- Popular areas chart will be generated here -->
+                </div>
+            </div>
+
+            <!-- Data Collection Summary -->
+            <div class="subsection">
+                <h3>📈 Data Collection Summary</h3>
+                <div class="data-summary">
+                    <div class="summary-item">
+                        <span class="label">Last Update:</span>
+                        <span class="value" id="lastUpdate">No data</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Data Accuracy:</span>
+                        <span class="value" id="dataAccuracy">0%</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Most Active Reporter:</span>
+                        <span class="value" id="mostActiveReporter">No data</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Most Popular Food Type:</span>
+                        <span class="value" id="mostPopularType">No data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Reports Section -->
+        <div class="section">
+            <h2>📊 Detailed Reports & Analytics</h2>
+            
+            <!-- Report Filters -->
+            <div class="form-row" style="margin-bottom: 1rem;">
+                <div class="form-group">
+                    <label for="reportType">Report Type</label>
+                    <select id="reportType" onchange="generateReport()">
+                        <option value="daily">Daily Reports</option>
+                        <option value="weekly">Weekly Reports</option>
+                        <option value="monthly">Monthly Reports</option>
+                        <option value="byType">By Food Type</option>
+                        <option value="byReporter">By Reporter</option>
+                        <option value="byLocation">By Location Area</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dateRange">Date Range</label>
+                    <input type="date" id="dateRange" onchange="generateReport()">
+                </div>
+                <div class="form-group">
+                    <label for="exportFormat">Export Format</label>
+                    <select id="exportFormat">
+                        <option value="json">JSON</option>
+                        <option value="csv">CSV</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary" onclick="exportReport()">Export Report</button>
+                </div>
+            </div>
+
+            <!-- Report Content -->
+            <div id="reportContent">
+                <!-- Reports will be generated here -->
+            </div>
+        </div>
+
+        <!-- Data Collection Summary -->
+        <div class="section">
+            <h2>📈 Data Collection Summary</h2>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalDataPoints">0</div>
+                    <div class="stat-label">Total Data Points</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="dataAccuracy">0%</div>
+                    <div class="stat-label">Data Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="lastUpdate">-</div>
+                    <div class="stat-label">Last Update</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="dataCompleteness">0%</div>
+                    <div class="stat-label">Data Completeness</div>
+                </div>
+            </div>
+
+            <!-- Data Quality Metrics -->
+            <div class="form-row">
+                <div class="form-group">
+                    <h3>Data Quality Metrics</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataQualityTable">
+                            <!-- Data quality metrics will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Activity Reports -->
+        <div class="section">
+            <h2>👥 User Activity Reports</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <h3>Top Reporters</h3>
+                    <table class="table" id="topReportersTable">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Reporter Name</th>
+                                <th>Reports Count</th>
+                                <th>Last Report</th>
+                                <th>Most Active Area</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topReportersTableBody">
+                            <!-- Top reporters will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <h3>Reporting Activity Timeline</h3>
+                    <div id="activityTimeline">
+                        <!-- Activity timeline will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Analytics -->
+        <div class="section">
+            <h2>📍 Location Analytics</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <h3>Most Popular Areas</h3>
+                    <table class="table" id="popularAreasTable">
+                        <thead>
+                            <tr>
+                                <th>Area</th>
+                                <th>Food Truck Count</th>
+                                <th>Popular Types</th>
+                                <th>Average Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="popularAreasTableBody">
+                            <!-- Popular areas will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <h3>Geographic Distribution</h3>
+                    <div id="geographicDistribution">
+                        <!-- Geographic distribution will be shown here -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
         // API base URL
         const API_BASE = '/api';
+        
+        // Force cache refresh for updated food types
+        if (window.location.search.indexOf('v=') === -1) {
+            window.location.search = '?v=' + Date.now();
+        }
+        
+        // Additional cache-busting: Force reload if page is cached
+        window.addEventListener('load', function() {
+            if (performance.navigation.type === 1) {
+                // Page was reloaded, check if we need to force refresh
+                const lastUpdate = localStorage.getItem('lastUpdate');
+                const currentTime = Date.now();
+                if (!lastUpdate || (currentTime - parseInt(lastUpdate)) > 300000) { // 5 minutes
+                    localStorage.setItem('lastUpdate', currentTime);
+                    window.location.reload(true);
+                }
+            }
+        });
         
         // Load food trucks on page load
         document.addEventListener('DOMContentLoaded', function() {
@@ -332,7 +679,7 @@
             saveFoodTruck();
         });
         
-        // Load statistics
+        // Load comprehensive statistics
         async function loadStats() {
             try {
                 const response = await fetch(`${API_BASE}/foodtrucks`);
@@ -341,9 +688,35 @@
                 const totalTrucks = trucks.length;
                 const activeTrucks = trucks.filter(truck => truck.isActive).length;
                 
+                // Calculate today's reports
+                const today = new Date().toDateString();
+                const todayReports = trucks.filter(truck => 
+                    new Date(truck.reportedAt).toDateString() === today
+                ).length;
+                
+                // Calculate unique reporters
+                const uniqueReporters = new Set(trucks.map(truck => truck.reportedBy)).size;
+                
+                // Calculate average reports per day
+                const dates = trucks.map(truck => new Date(truck.reportedAt).toDateString());
+                const uniqueDates = new Set(dates).size;
+                const avgReportsPerDay = uniqueDates > 0 ? (totalTrucks / uniqueDates).toFixed(1) : 0;
+                
+                // Update statistics
                 document.getElementById('totalTrucks').textContent = totalTrucks;
                 document.getElementById('activeTrucks').textContent = activeTrucks;
                 document.getElementById('totalReports').textContent = totalTrucks;
+                document.getElementById('todayReports').textContent = todayReports;
+                document.getElementById('uniqueReporters').textContent = uniqueReporters;
+                document.getElementById('avgReportsPerDay').textContent = avgReportsPerDay;
+                
+                // Load additional data
+                loadDataCollectionSummary(trucks);
+                loadTopReporters(trucks);
+                loadPopularAreas(trucks);
+                loadDataQualityMetrics(trucks);
+                loadDataSummary(trucks);
+                
             } catch (error) {
                 console.error('Error loading stats:', error);
             }
@@ -364,7 +737,10 @@
                         <td>${truck.id}</td>
                         <td>${truck.name}</td>
                         <td>${truck.type}</td>
-                        <td>${truck.latitude.toFixed(4)}, ${truck.longitude.toFixed(4)}</td>
+                        <td>${truck.area || 'N/A'}</td>
+                        <td>${truck.landmark || 'N/A'}</td>
+                        <td>${truck.operatingHours || 'N/A'}</td>
+                        <td>${truck.contactNumber || 'N/A'}</td>
                         <td>${truck.reportedBy}</td>
                         <td>${new Date(truck.reportedAt).toLocaleString()}</td>
                         <td class="${truck.isActive ? 'status-active' : 'status-inactive'}">
@@ -440,6 +816,11 @@
                 document.getElementById('description').value = truck.description || '';
                 document.getElementById('latitude').value = truck.latitude;
                 document.getElementById('longitude').value = truck.longitude;
+                document.getElementById('area').value = truck.area || '';
+                document.getElementById('landmark').value = truck.landmark || '';
+                document.getElementById('streetAddress').value = truck.streetAddress || '';
+                document.getElementById('operatingHours').value = truck.operatingHours || '';
+                document.getElementById('contactNumber').value = truck.contactNumber || '';
                 document.getElementById('reportedBy').value = truck.reportedBy;
                 document.getElementById('isActive').value = truck.isActive;
                 document.getElementById('imageUrl').value = truck.imageUrl || '';
@@ -500,6 +881,467 @@
                 alertDiv.remove();
             }, 5000);
         }
+
+        // Data Collection Summary
+        function loadDataCollectionSummary(trucks) {
+            const totalDataPoints = trucks.length;
+            const lastUpdate = trucks.length > 0 ? 
+                new Date(Math.max(...trucks.map(t => new Date(t.reportedAt)))).toLocaleString() : 'No data';
+            
+            // Calculate data completeness (percentage of trucks with all required fields)
+            const completeData = trucks.filter(truck => 
+                truck.name && truck.type && truck.latitude && truck.longitude && truck.reportedBy
+            ).length;
+            const dataCompleteness = totalDataPoints > 0 ? Math.round((completeData / totalDataPoints) * 100) : 0;
+            
+            // Calculate data accuracy (percentage of trucks with valid coordinates)
+            const validCoordinates = trucks.filter(truck => 
+                truck.latitude >= -90 && truck.latitude <= 90 && 
+                truck.longitude >= -180 && truck.longitude <= 180
+            ).length;
+            const dataAccuracy = totalDataPoints > 0 ? Math.round((validCoordinates / totalDataPoints) * 100) : 0;
+            
+            document.getElementById('totalDataPoints').textContent = totalDataPoints;
+            document.getElementById('lastUpdate').textContent = lastUpdate;
+            document.getElementById('dataCompleteness').textContent = dataCompleteness + '%';
+            document.getElementById('dataAccuracy').textContent = dataAccuracy + '%';
+        }
+
+        // Load Data Summary
+        function loadDataSummary(trucks) {
+            // Most active reporter
+            const reporterStats = {};
+            trucks.forEach(truck => {
+                reporterStats[truck.reportedBy] = (reporterStats[truck.reportedBy] || 0) + 1;
+            });
+            const mostActiveReporter = Object.entries(reporterStats)
+                .sort(([,a], [,b]) => b - a)[0];
+            
+            // Most popular food type
+            const typeStats = {};
+            trucks.forEach(truck => {
+                typeStats[truck.type] = (typeStats[truck.type] || 0) + 1;
+            });
+            const mostPopularType = Object.entries(typeStats)
+                .sort(([,a], [,b]) => b - a)[0];
+            
+            document.getElementById('mostActiveReporter').textContent = mostActiveReporter ? mostActiveReporter[0] : 'No data';
+            document.getElementById('mostPopularType').textContent = mostPopularType ? mostPopularType[0] : 'No data';
+        }
+
+        // Top Reporters
+        function loadTopReporters(trucks) {
+            const reporterStats = {};
+            
+            trucks.forEach(truck => {
+                if (!reporterStats[truck.reportedBy]) {
+                    reporterStats[truck.reportedBy] = {
+                        count: 0,
+                        lastReport: new Date(truck.reportedAt),
+                        areas: new Set()
+                    };
+                }
+                reporterStats[truck.reportedBy].count++;
+                reporterStats[truck.reportedBy].lastReport = new Date(Math.max(
+                    reporterStats[truck.reportedBy].lastReport,
+                    new Date(truck.reportedAt)
+                ));
+                if (truck.area) {
+                    reporterStats[truck.reportedBy].areas.add(truck.area);
+                }
+            });
+            
+            const topReporters = Object.entries(reporterStats)
+                .sort(([,a], [,b]) => b.count - a.count)
+                .slice(0, 10);
+            
+            const tbody = document.getElementById('topReportersTableBody');
+            tbody.innerHTML = '';
+            
+            topReporters.forEach(([reporter, stats], index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${reporter}</td>
+                    <td>${stats.count}</td>
+                    <td>${stats.lastReport.toLocaleString()}</td>
+                    <td>${Array.from(stats.areas).join(', ') || 'N/A'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Popular Areas
+        function loadPopularAreas(trucks) {
+            const areaStats = {};
+            
+            trucks.forEach(truck => {
+                const area = truck.area || 'Unknown Area';
+                if (!areaStats[area]) {
+                    areaStats[area] = {
+                        count: 0,
+                        types: new Set()
+                    };
+                }
+                areaStats[area].count++;
+                areaStats[area].types.add(truck.type);
+            });
+            
+            const popularAreas = Object.entries(areaStats)
+                .sort(([,a], [,b]) => b.count - a.count)
+                .slice(0, 10);
+            
+            const tbody = document.getElementById('popularAreasTableBody');
+            tbody.innerHTML = '';
+            
+            popularAreas.forEach(([area, stats]) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${area}</td>
+                    <td>${stats.count}</td>
+                    <td>${Array.from(stats.types).join(', ')}</td>
+                    <td>N/A</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Data Quality Metrics
+        function loadDataQualityMetrics(trucks) {
+            const metrics = [
+                {
+                    name: 'Complete Records',
+                    value: trucks.filter(t => t.name && t.type && t.latitude && t.longitude && t.reportedBy).length,
+                    total: trucks.length,
+                    status: 'Good'
+                },
+                {
+                    name: 'Valid Coordinates',
+                    value: trucks.filter(t => t.latitude >= -90 && t.latitude <= 90 && t.longitude >= -180 && t.longitude <= 180).length,
+                    total: trucks.length,
+                    status: 'Good'
+                },
+                {
+                    name: 'Recent Reports (Last 7 days)',
+                    value: trucks.filter(t => new Date(t.reportedAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length,
+                    total: trucks.length,
+                    status: 'Good'
+                },
+                {
+                    name: 'Active Trucks',
+                    value: trucks.filter(t => t.isActive).length,
+                    total: trucks.length,
+                    status: 'Good'
+                }
+            ];
+            
+            const tbody = document.getElementById('dataQualityTable');
+            tbody.innerHTML = '';
+            
+            metrics.forEach(metric => {
+                const percentage = metric.total > 0 ? Math.round((metric.value / metric.total) * 100) : 0;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${metric.name}</td>
+                    <td>${metric.value}/${metric.total} (${percentage}%)</td>
+                    <td class="${percentage >= 80 ? 'status-active' : percentage >= 60 ? 'status-inactive' : 'status-inactive'}">${metric.status}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Generate Reports
+        function generateReport() {
+            const reportType = document.getElementById('reportType').value;
+            const dateRange = document.getElementById('dateRange').value;
+            
+            fetch(`${API_BASE}/foodtrucks`)
+                .then(response => response.json())
+                .then(trucks => {
+                    let reportData = trucks;
+                    
+                    // Filter by date if specified
+                    if (dateRange) {
+                        const selectedDate = new Date(dateRange);
+                        reportData = trucks.filter(truck => 
+                            new Date(truck.reportedAt).toDateString() === selectedDate.toDateString()
+                        );
+                    }
+                    
+                    let reportContent = '';
+                    
+                    switch(reportType) {
+                        case 'daily':
+                            reportContent = generateDailyReport(reportData);
+                            break;
+                        case 'weekly':
+                            reportContent = generateWeeklyReport(reportData);
+                            break;
+                        case 'monthly':
+                            reportContent = generateMonthlyReport(reportData);
+                            break;
+                        case 'byType':
+                            reportContent = generateTypeReport(reportData);
+                            break;
+                        case 'byReporter':
+                            reportContent = generateReporterReport(reportData);
+                            break;
+                        case 'byLocation':
+                            reportContent = generateLocationReport(reportData);
+                            break;
+                    }
+                    
+                    document.getElementById('reportContent').innerHTML = reportContent;
+                })
+                .catch(error => {
+                    console.error('Error generating report:', error);
+                    showAlert('Error generating report', 'error');
+                });
+        }
+
+        // Report Generation Functions
+        function generateDailyReport(data) {
+            const today = new Date().toDateString();
+            const todayData = data.filter(truck => 
+                new Date(truck.reportedAt).toDateString() === today
+            );
+            
+            return `
+                <h3>Daily Report - ${today}</h3>
+                <p><strong>Total Reports Today:</strong> ${todayData.length}</p>
+                <p><strong>Active Trucks:</strong> ${todayData.filter(t => t.isActive).length}</p>
+                <p><strong>Unique Reporters:</strong> ${new Set(todayData.map(t => t.reportedBy)).size}</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Food Truck</th>
+                            <th>Type</th>
+                            <th>Reporter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${todayData.map(truck => `
+                            <tr>
+                                <td>${new Date(truck.reportedAt).toLocaleTimeString()}</td>
+                                <td>${truck.name}</td>
+                                <td>${truck.type}</td>
+                                <td>${truck.reportedBy}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function generateTypeReport(data) {
+            const typeStats = {};
+            data.forEach(truck => {
+                typeStats[truck.type] = (typeStats[truck.type] || 0) + 1;
+            });
+            
+            return `
+                <h3>Food Type Distribution Report</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Food Type</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(typeStats).map(([type, count]) => `
+                            <tr>
+                                <td>${type}</td>
+                                <td>${count}</td>
+                                <td>${Math.round((count / data.length) * 100)}%</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function generateReporterReport(data) {
+            const reporterStats = {};
+            data.forEach(truck => {
+                reporterStats[truck.reportedBy] = (reporterStats[truck.reportedBy] || 0) + 1;
+            });
+            
+            return `
+                <h3>Reporter Activity Report</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Reporter</th>
+                            <th>Reports</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(reporterStats).map(([reporter, count]) => `
+                            <tr>
+                                <td>${reporter}</td>
+                                <td>${count}</td>
+                                <td>${Math.round((count / data.length) * 100)}%</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function generateLocationReport(data) {
+            const locationStats = {};
+            data.forEach(truck => {
+                const area = truck.area || 'Unknown Area';
+                locationStats[area] = (locationStats[area] || 0) + 1;
+            });
+            
+            return `
+                <h3>Location Distribution Report</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Food Trucks</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(locationStats).map(([area, count]) => `
+                            <tr>
+                                <td>${area}</td>
+                                <td>${count}</td>
+                                <td>${Math.round((count / data.length) * 100)}%</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function generateWeeklyReport(data) {
+            const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+            const weekData = data.filter(truck => new Date(truck.reportedAt) >= weekAgo);
+            
+            return `
+                <h3>Weekly Report (Last 7 Days)</h3>
+                <p><strong>Total Reports:</strong> ${weekData.length}</p>
+                <p><strong>Daily Average:</strong> ${Math.round(weekData.length / 7)}</p>
+                <p><strong>Most Active Day:</strong> ${getMostActiveDay(weekData)}</p>
+            `;
+        }
+
+        function generateMonthlyReport(data) {
+            const monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+            const monthData = data.filter(truck => new Date(truck.reportedAt) >= monthAgo);
+            
+            return `
+                <h3>Monthly Report (Last 30 Days)</h3>
+                <p><strong>Total Reports:</strong> ${monthData.length}</p>
+                <p><strong>Daily Average:</strong> ${Math.round(monthData.length / 30)}</p>
+                <p><strong>Growth Rate:</strong> ${calculateGrowthRate(monthData)}%</p>
+            `;
+        }
+
+        function getMostActiveDay(data) {
+            const dayStats = {};
+            data.forEach(truck => {
+                const day = new Date(truck.reportedAt).toLocaleDateString('en-US', { weekday: 'long' });
+                dayStats[day] = (dayStats[day] || 0) + 1;
+            });
+            
+            const mostActive = Object.entries(dayStats).sort(([,a], [,b]) => b - a)[0];
+            return mostActive ? `${mostActive[0]} (${mostActive[1]} reports)` : 'No data';
+        }
+
+        function calculateGrowthRate(data) {
+            // Simple growth rate calculation
+            const firstHalf = data.filter(truck => 
+                new Date(truck.reportedAt) < new Date(Date.now() - 15 * 24 * 60 * 60 * 1000)
+            ).length;
+            const secondHalf = data.length - firstHalf;
+            
+            if (firstHalf === 0) return 0;
+            return Math.round(((secondHalf - firstHalf) / firstHalf) * 100);
+        }
+
+        // Export Report
+        function exportReport() {
+            const format = document.getElementById('exportFormat').value;
+            const reportType = document.getElementById('reportType').value;
+            
+            fetch(`${API_BASE}/foodtrucks`)
+                .then(response => response.json())
+                .then(data => {
+                    let exportData = data;
+                    let filename = `foodtruck_report_${reportType}_${new Date().toISOString().split('T')[0]}`;
+                    
+                    switch(format) {
+                        case 'json':
+                            downloadJSON(data, filename);
+                            break;
+                        case 'csv':
+                            downloadCSV(data, filename);
+                            break;
+                        case 'pdf':
+                            showAlert('PDF export feature coming soon!', 'error');
+                            break;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error exporting report:', error);
+                    showAlert('Error exporting report', 'error');
+                });
+        }
+
+        function downloadJSON(data, filename) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadCSV(data, filename) {
+            const headers = ['ID', 'Name', 'Type', 'Description', 'Latitude', 'Longitude', 'Area', 'Landmark', 'Street Address', 'Operating Hours', 'Contact Number', 'Reported By', 'Reported At', 'Status'];
+            const csvContent = [
+                headers.join(','),
+                ...data.map(truck => [
+                    truck.id,
+                    `"${truck.name}"`,
+                    truck.type,
+                    `"${truck.description || ''}"`,
+                    truck.latitude,
+                    truck.longitude,
+                    `"${truck.area || ''}"`,
+                    `"${truck.landmark || ''}"`,
+                    `"${truck.streetAddress || ''}"`,
+                    `"${truck.operatingHours || ''}"`,
+                    `"${truck.contactNumber || ''}"`,
+                    `"${truck.reportedBy}"`,
+                    truck.reportedAt,
+                    truck.isActive ? 'Active' : 'Inactive'
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Set default date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('dateRange').value = new Date().toISOString().split('T')[0];
+        });
     </script>
 </body>
 </html>

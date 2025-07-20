@@ -61,6 +61,10 @@
     <string name="validation_longitude_required">Longitude is required</string>
     <string name="validation_reporter_required">Reporter name is required</string>
     <string name="validation_invalid_coordinates">Invalid latitude or longitude format</string>
+    <string name="validation_area_required">Area is required</string>
+    <string name="validation_landmark_required">Landmark is required</string>
+    <string name="validation_street_address_required">Street address is required</string>
+    <string name="validation_operating_hours_required">Operating hours are required</string>
 
     <string name="app_name">Food Truck Tracker</string>
     <string name="filter_title">Filter</string>

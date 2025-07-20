@@ -1,44 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="12dp"
-    android:background="@android:color/white">
+    android:padding="16dp"
+    android:background="@drawable/info_window_background">
 
+    <!-- Food Truck Name -->
     <TextView
         android:id="@+id/tv_truck_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Food Truck Name"
         android:textColor="@color/primary_color"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="8dp" />
 
+    <!-- Food Type -->
     <TextView
         android:id="@+id/tv_truck_type"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Type: Mee Goreng"
         android:textColor="@color/text_primary"
         android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description: Delicious food"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Location Details Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📍 Location Details"
+        android:textColor="@color/primary_color"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Area -->
+    <TextView
+        android:id="@+id/tv_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Area: Bukit Bintang"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
         android:layout_marginBottom="2dp" />
 
+    <!-- Landmark -->
+    <TextView
+        android:id="@+id/tv_landmark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Landmark: Near Pavilion Mall"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:layout_marginBottom="2dp" />
+
+    <!-- Street Address -->
+    <TextView
+        android:id="@+id/tv_street_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address: Jalan Bukit Bintang"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Operating Hours -->
+    <TextView
+        android:id="@+id/tv_operating_hours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🕒 Hours: 6:00 PM - 11:00 PM"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Contact Number -->
+    <TextView
+        android:id="@+id/tv_contact_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📞 Contact: 012-3456789"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Report Information Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📋 Report Info"
+        android:textColor="@color/primary_color"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Reported By -->
     <TextView
         android:id="@+id/tv_reported_by"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reported by: User"
+        android:text="Reported by: Ahmad"
         android:textColor="@color/text_secondary"
         android:textSize="12sp"
         android:layout_marginBottom="2dp" />
 
+    <!-- Reported Time -->
     <TextView
         android:id="@+id/tv_reported_time"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2 hours ago"
+        android:text="Time: 2 hours ago"
         android:textColor="@color/text_secondary"
         android:textSize="12sp" />
 

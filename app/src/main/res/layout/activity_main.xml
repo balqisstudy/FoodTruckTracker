@@ -18,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Food Truck Tracker"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"
+        app:popupTheme="@style/PopupMenuStyle" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -112,7 +113,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:text="About"
-                        android:textColor="@color/material_dynamic_primary30"
+                        android:textColor="@color/primary_color"
                         style="@style/Widget.Material3.Button.TextButton" />
 
                 </LinearLayout>

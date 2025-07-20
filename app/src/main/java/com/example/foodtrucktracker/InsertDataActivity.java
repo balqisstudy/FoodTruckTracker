@@ -23,6 +23,7 @@ import retrofit2.Response;
 public class InsertDataActivity extends AppCompatActivity implements LocationHelper.LocationListener {
 
     private EditText etName, etDescription, etLatitude, etLongitude, etReportedBy;
+    private EditText etArea, etLandmark, etStreetAddress, etOperatingHours, etContactNumber;
     private Spinner spinnerType;
     private Button btnGetLocation, btnSubmit;
     private LocationHelper locationHelper;
@@ -70,6 +71,11 @@ public class InsertDataActivity extends AppCompatActivity implements LocationHel
         etLatitude = findViewById(R.id.et_latitude);
         etLongitude = findViewById(R.id.et_longitude);
         etReportedBy = findViewById(R.id.et_reported_by);
+        etArea = findViewById(R.id.et_area);
+        etLandmark = findViewById(R.id.et_landmark);
+        etStreetAddress = findViewById(R.id.et_street_address);
+        etOperatingHours = findViewById(R.id.et_operating_hours);
+        etContactNumber = findViewById(R.id.et_contact_number);
         spinnerType = findViewById(R.id.spinner_type);
         btnGetLocation = findViewById(R.id.btn_get_location);
         btnSubmit = findViewById(R.id.btn_submit);
@@ -121,6 +127,11 @@ public class InsertDataActivity extends AppCompatActivity implements LocationHel
         foodTruck.setReportedBy(etReportedBy.getText().toString().trim());
         foodTruck.setReportedAt(DateTimeUtils.getCurrentISOTime());
         foodTruck.setActive(true);
+        foodTruck.setArea(etArea.getText().toString().trim());
+        foodTruck.setLandmark(etLandmark.getText().toString().trim());
+        foodTruck.setStreetAddress(etStreetAddress.getText().toString().trim());
+        foodTruck.setOperatingHours(etOperatingHours.getText().toString().trim());
+        foodTruck.setContactNumber(etContactNumber.getText().toString().trim());
 
         // Submit to server
         Call<FoodTruck> call = apiService.createFoodTruck(foodTruck);
@@ -165,6 +176,26 @@ public class InsertDataActivity extends AppCompatActivity implements LocationHel
 
         if (etReportedBy.getText().toString().trim().isEmpty()) {
             etReportedBy.setError("Reporter name is required");
+            return false;
+        }
+
+        if (etArea.getText().toString().trim().isEmpty()) {
+            etArea.setError("Area is required");
+            return false;
+        }
+
+        if (etLandmark.getText().toString().trim().isEmpty()) {
+            etLandmark.setError("Landmark is required");
+            return false;
+        }
+
+        if (etStreetAddress.getText().toString().trim().isEmpty()) {
+            etStreetAddress.setError("Street address is required");
+            return false;
+        }
+
+        if (etOperatingHours.getText().toString().trim().isEmpty()) {
+            etOperatingHours.setError("Operating hours are required");
             return false;
         }
 

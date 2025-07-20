@@ -33,6 +33,21 @@ public class FoodTruck implements Serializable {
     
     @SerializedName("isActive")
     private boolean isActive;
+    
+    @SerializedName("area")
+    private String area;
+    
+    @SerializedName("landmark")
+    private String landmark;
+    
+    @SerializedName("streetAddress")
+    private String streetAddress;
+    
+    @SerializedName("operatingHours")
+    private String operatingHours;
+    
+    @SerializedName("contactNumber")
+    private String contactNumber;
 
     // Default constructor
     public FoodTruck() {}
@@ -40,7 +55,9 @@ public class FoodTruck implements Serializable {
     // Constructor with all parameters
     public FoodTruck(int id, String name, String type, String description, 
                      double latitude, double longitude, String reportedBy, 
-                     String reportedAt, String imageUrl, boolean isActive) {
+                     String reportedAt, String imageUrl, boolean isActive,
+                     String area, String landmark, String streetAddress,
+                     String operatingHours, String contactNumber) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -51,6 +68,11 @@ public class FoodTruck implements Serializable {
         this.reportedAt = reportedAt;
         this.imageUrl = imageUrl;
         this.isActive = isActive;
+        this.area = area;
+        this.landmark = landmark;
+        this.streetAddress = streetAddress;
+        this.operatingHours = operatingHours;
+        this.contactNumber = contactNumber;
     }
 
     // Getters and Setters
@@ -84,6 +106,21 @@ public class FoodTruck implements Serializable {
     public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }
 
+    public String getArea() { return area; }
+    public void setArea(String area) { this.area = area; }
+
+    public String getLandmark() { return landmark; }
+    public void setLandmark(String landmark) { this.landmark = landmark; }
+
+    public String getStreetAddress() { return streetAddress; }
+    public void setStreetAddress(String streetAddress) { this.streetAddress = streetAddress; }
+
+    public String getOperatingHours() { return operatingHours; }
+    public void setOperatingHours(String operatingHours) { this.operatingHours = operatingHours; }
+
+    public String getContactNumber() { return contactNumber; }
+    public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
+
     @Override
     public String toString() {
         return "FoodTruck{" +
@@ -97,6 +134,11 @@ public class FoodTruck implements Serializable {
                 ", reportedAt='" + reportedAt + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", isActive=" + isActive +
+                ", area='" + area + '\'' +
+                ", landmark='" + landmark + '\'' +
+                ", streetAddress='" + streetAddress + '\'' +
+                ", operatingHours='" + operatingHours + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
                 '}';
     }
 }

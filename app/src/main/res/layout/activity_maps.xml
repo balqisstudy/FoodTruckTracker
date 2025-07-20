@@ -12,9 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/white"
-        android:title="Restaurants"
+        android:title="Food Truck Map"
         android:titleTextColor="@android:color/black"
-        app:navigationIcon="@drawable/ic_filter"
+        app:navigationIcon="@drawable/ic_arrow_back"
         app:menu="@menu/top_app_bar_menu"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,59 +62,394 @@
             android:text="BBQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSatay"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="Satay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDrinks"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:text="Drinks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </com.google.android.material.chip.ChipGroup>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_my_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_my_location"
-        app:backgroundTint="@color/white"
-        app:tint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/foodTruckInfoTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#CCFFFFFF"
-        android:padding="16dp"
-        android:text="Select a marker to see food truck details."
-        android:textColor="#333333"
-        android:textSize="16sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/fab_my_location"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+
+
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="#FFC107"
-        app:tint="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/foodTruckInfoTextView" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@android:drawable/ic_dialog_info"
-        app:backgroundTint="#03A9F4"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#FFC107"
         app:tint="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/foodTruckInfoTextView" />
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Color Legend -->
+    <LinearLayout
+        android:id="@+id/color_legend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/legend_background"
+        android:padding="12dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/fab_add_data"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Legend Header with Toggle -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Types"
+                android:textColor="@color/primary_color"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/legend_toggle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_arrow_down"
+                android:contentDescription="Toggle legend" />
+        </LinearLayout>
+
+        <!-- Legend Content -->
+        <LinearLayout
+            android:id="@+id/legend_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+        <!-- Fried Dishes - Yellow -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_yellow"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fried Dishes"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+
+
+        <!-- Grilled / BBQ - Red -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_red"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grilled / BBQ"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+
+
+
+
+        <!-- Western Food - Dark Red -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_dark_red"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Western Food"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Asian Cuisine - Purple -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_purple"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Asian Cuisine"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Traditional / Local - Dark Orange -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_dark_orange"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Traditional / Local"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Desserts & Sweets - Pink -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_pink"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desserts &amp; Sweets"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Fruits - Green -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_green"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fruits"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Seafood - Teal -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_teal"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seafood"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Street Food - Deep Blue -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_deep_blue"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Street Food"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- 🌮 Fusion / International -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_purple"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fusion / International"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- 🥘 Traditional Malaysian -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_red_orange"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Traditional Malaysian"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Coffee - Coffee Brown -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_coffee_brown"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coffee"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Non-Coffee & Tea - Matcha Green -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_matcha_green"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Non-Coffee &amp; Tea"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <!-- Beverage - Sky Blue -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/legend_sky_blue"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beverage"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        </LinearLayout> <!-- End of legend_content -->
+
+    </LinearLayout> <!-- End of color_legend -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

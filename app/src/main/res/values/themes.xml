@@ -2,12 +2,35 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.FoodTruckTracker" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimary">@color/primary_color_dark</item>
         <item name="colorPrimaryVariant">@color/dark_blue_variant</item>
         <item name="colorSecondary">@color/light_blue</item>
+        <!-- Custom popup menu style for better text visibility -->
+        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:actionOverflowMenuStyle">@style/PopupMenuStyle</item>
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
 
     </style>
 
     <style name="Theme.FoodTruckTracker" parent="Base.Theme.FoodTruckTracker" />
+    
+    <!-- Custom popup menu style -->
+    <style name="PopupMenuStyle" parent="Widget.Material3.PopupMenu">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    
+    <!-- Custom action bar style -->
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/primary_color</item>
+        <item name="android:background">@color/primary_color_dark</item>
+    </style>
+    
+    <!-- Custom toolbar style -->
+    <style name="ToolbarStyle" parent="Widget.Material3.Toolbar">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:background">@color/primary_color_dark</item>
+        <item name="popupTheme">@style/PopupMenuStyle</item>
+    </style>
 </resources>
