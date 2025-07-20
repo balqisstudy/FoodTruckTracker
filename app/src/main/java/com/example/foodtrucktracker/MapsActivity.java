@@ -689,17 +689,44 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 enableMyLocation();
+                Toast.makeText(this, "Location permission granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void setupButtonClickHandlers() {
-        // Green "My Location" button - Go to default location (Kuala Lumpur)
+        // White "My Location" button - Go to user's current location
         findViewById(R.id.fab_my_location).setOnClickListener(v -> {
-            // Go to default Kuala Lumpur location
-            LatLng defaultLocation = new LatLng(3.139, 101.6869);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
-            Toast.makeText(this, "Moved to Kuala Lumpur", Toast.LENGTH_SHORT).show();
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                // Get user's current location
+                if (mMap.isMyLocationEnabled()) {
+                    android.location.Location myLocation = mMap.getMyLocation();
+                    if (myLocation != null) {
+                        LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
+                        Toast.makeText(this, "Moved to your location", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // If location is not available, show a message
+                        Toast.makeText(this, "Getting your location...", Toast.LENGTH_SHORT).show();
+                        // Fallback to default location
+                        LatLng defaultLocation = new LatLng(3.139, 101.6869);
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
+                    }
+                } else {
+                    // Enable my location if not enabled
+                    enableMyLocation();
+                    Toast.makeText(this, "Please enable location services", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Request location permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        LOCATION_PERMISSION_REQUEST_CODE);
+                Toast.makeText(this, "Location permission required", Toast.LENGTH_SHORT).show();
+            }
         });
         
         // Yellow "+" button - Add Food Truck
