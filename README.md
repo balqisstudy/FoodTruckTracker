@@ -26,7 +26,6 @@ A crowdsourced mobile application for tracking food truck locations in real-time
 - **Language**: Java
 - **UI**: Material Design Components
 - **Maps**: Google Maps API
-- **Networking**: Retrofit + OkHttp
 - **Location**: Google Play Services Location
 - **Architecture**: MVC pattern
 
@@ -76,28 +75,6 @@ FoodTruckTracker/
    git clone https://github.com/balqisstudy/FoodTruckTracker.git
    cd FoodTruckTracker
    ```
-
-2. **Get Google Maps API Key**:
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select existing one
-   - Enable Maps SDK for Android
-   - Create credentials (API Key)
-   - Restrict the key to Android apps
-
-3. **Configure API Key**:
-   - Open `app/src/main/AndroidManifest.xml`
-   - Replace `YOUR_API_KEY` with your actual Google Maps API key
-
-4. **Update Server URL**:
-   - Open `app/src/main/java/com/example/foodtrucktracker/network/ApiClient.java`
-   - Update `BASE_URL` to your server's URL
-   - For emulator: `http://10.0.2.2:3000/api/`
-   - For real device: `http://your-server-ip:3000/api/`
-
-5. **Build and Run**:
-   - Open project in Android Studio
-   - Sync project with Gradle files
-   - Run on emulator or device
 
 ### Server Setup
 
@@ -162,29 +139,32 @@ FoodTruckTracker/
 - Ice Cream
 - Other
 
-## Screenshots
-[Add screenshots of your app here]
-
 ## Demo Video
 [Add link to your YouTube demonstration video]
 
 ## Developer Information
 
 ### Team Members
-- **Developer 1**: [Your Name]
-  - Student ID: [Your Student ID]
-  - Programme: [Your Programme Code]
-  - Email: [your.email@example.com]
+- **Developer 1**: NURUL ATHIRAH BINTI AMRAN
+  - Student ID: 2023142825
+  - Programme: CDCS240
+  - Email: athirah632@egmail.com
 
-- **Developer 2**: [Partner Name]
-  - Student ID: [Partner Student ID]
-  - Programme: [Partner Programme Code]
-  - Email: [partner.email@example.com]
+- **Developer 2**: NUR NABILAH BINTI MUHAMMAD KHAIRI
+  - Student ID: 2023104699
+  - Programme: CDCS240
+  - Email: nurnabilahkh@gmail.com
 
+- **Developer 2**: SITI BALQIS BINTI MUHAMMAD SAIEDI
+  - Student ID: 2023114587
+  - Programme: CDCS240
+  - Email: balqisstudy@gmail.com
+ 
+  
 ### Group Information
-- **Group**: [Your Group Number]
-- **Course**: Mobile Application Development
-- **Institution**: [Your Institution]
+- **Group**: RCDCS2405A
+- **Course**: MOBILE TECHNOLOGY AND DEVELOPMENT
+- **Institution**: Universiti Teknologi MARA
 
 ## Target Users and Context
 
@@ -228,19 +208,5 @@ FoodTruckTracker/
 - Offline map caching
 - Advanced filtering and search options
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## Support
-For questions or support, please contact the development team or create an issue on GitHub.
-
----
 
 © 2025 Food Truck Tracker Team. All rights reserved.
