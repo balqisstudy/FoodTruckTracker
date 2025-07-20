@@ -188,12 +188,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onResponse(Call<List<FoodTruck>> call, Response<List<FoodTruck>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    allFoodTrucks = response.body();
-                    displayFoodTrucksOnMap(allFoodTrucks);
-                    Log.d(TAG, "Successfully loaded " + allFoodTrucks.size() + " food trucks from server");
-                    Toast.makeText(MapsActivity.this, "✅ Loaded " + allFoodTrucks.size() + " food trucks", Toast.LENGTH_SHORT).show();
+                    try {
+                        allFoodTrucks = response.body();
+                        displayFoodTrucksOnMap(allFoodTrucks);
+                        Log.d(TAG, "Successfully loaded " + allFoodTrucks.size() + " food trucks from server");
+                        Toast.makeText(MapsActivity.this, "✅ Loaded " + allFoodTrucks.size() + " food trucks", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error processing food truck data: " + e.getMessage(), e);
+                        Toast.makeText(MapsActivity.this, "❌ Error processing data - Using sample data", Toast.LENGTH_LONG).show();
+                        loadSampleData();
+                    }
                 } else {
                     Log.e(TAG, "Server responded with error code: " + response.code() + ", message: " + response.message());
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Log.e(TAG, "Error body: " + errorBody);
+                        } catch (Exception e) {
+                            Log.e(TAG, "Could not read error body", e);
+                        }
+                    }
                     Toast.makeText(MapsActivity.this, "❌ Server error: " + response.code() + " - Using sample data", Toast.LENGTH_LONG).show();
                     loadSampleData();
                 }
@@ -208,7 +222,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else if (t instanceof java.net.SocketTimeoutException) {
                     errorMessage += "Connection timeout (SocketTimeoutException)";
                 } else if (t instanceof java.lang.IllegalStateException) {
-                    errorMessage += "JSON parsing error (IllegalStateException)";
+                    errorMessage += "JSON parsing error (IllegalStateException) - " + t.getMessage();
+                } else if (t instanceof com.google.gson.JsonSyntaxException) {
+                    errorMessage += "JSON syntax error (JsonSyntaxException) - " + t.getMessage();
                 } else {
                     errorMessage += t.getClass().getSimpleName() + ": " + t.getMessage();
                 }

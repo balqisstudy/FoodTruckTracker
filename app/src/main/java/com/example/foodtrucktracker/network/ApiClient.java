@@ -7,6 +7,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonPrimitive;
 import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
@@ -20,9 +22,45 @@ public class ApiClient {
         if (retrofit == null) {
             Log.d(TAG, "Creating new Retrofit client with base URL: " + BASE_URL);
             
-            // Create custom Gson with lenient parsing
+            // Create custom Gson with lenient parsing and type adapters
             Gson gson = new GsonBuilder()
                     .setLenient()
+                    .registerTypeAdapter(boolean.class, (JsonDeserializer<Boolean>) (json, typeOfT, context) -> {
+                        try {
+                            if (json.isJsonPrimitive()) {
+                                JsonPrimitive primitive = json.getAsJsonPrimitive();
+                                if (primitive.isBoolean()) {
+                                    return primitive.getAsBoolean();
+                                } else if (primitive.isNumber()) {
+                                    return primitive.getAsInt() != 0;
+                                } else if (primitive.isString()) {
+                                    String str = primitive.getAsString().toLowerCase();
+                                    return "true".equals(str) || "1".equals(str);
+                                }
+                            }
+                            return false;
+                        } catch (Exception e) {
+                            return false;
+                        }
+                    })
+                    .registerTypeAdapter(Boolean.class, (JsonDeserializer<Boolean>) (json, typeOfT, context) -> {
+                        try {
+                            if (json.isJsonPrimitive()) {
+                                JsonPrimitive primitive = json.getAsJsonPrimitive();
+                                if (primitive.isBoolean()) {
+                                    return primitive.getAsBoolean();
+                                } else if (primitive.isNumber()) {
+                                    return primitive.getAsInt() != 0;
+                                } else if (primitive.isString()) {
+                                    String str = primitive.getAsString().toLowerCase();
+                                    return "true".equals(str) || "1".equals(str);
+                                }
+                            }
+                            return false;
+                        } catch (Exception e) {
+                            return false;
+                        }
+                    })
                     .create();
             
             // Create logging interceptor
