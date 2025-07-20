@@ -89,14 +89,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Set up button click handlers
         setupButtonClickHandlers();
 
-        // Set up chip filters - Updated to use simplified categories
-        findViewById(R.id.chipMee).setOnClickListener(v -> filterMarkersByType("Fried Dishes"));
+        // Set up chip filters - All 12 categories + All Food Types
+        findViewById(R.id.chipAll).setOnClickListener(v -> showAllMarkers());
+        findViewById(R.id.chipFriedDishes).setOnClickListener(v -> filterMarkersByType("Fried Dishes"));
+        findViewById(R.id.chipGrilledBBQ).setOnClickListener(v -> filterMarkersByType("Grilled / BBQ"));
+        findViewById(R.id.chipWestern).setOnClickListener(v -> filterMarkersByType("Western Food"));
+        findViewById(R.id.chipAsian).setOnClickListener(v -> filterMarkersByType("Asian Cuisine"));
+        findViewById(R.id.chipTraditional).setOnClickListener(v -> filterMarkersByType("Traditional / Local"));
+        findViewById(R.id.chipDesserts).setOnClickListener(v -> filterMarkersByType("Desserts & Sweets"));
+        findViewById(R.id.chipFruits).setOnClickListener(v -> filterMarkersByType("Fruits"));
+        findViewById(R.id.chipSeafood).setOnClickListener(v -> filterMarkersByType("Seafood"));
+        findViewById(R.id.chipStreetFood).setOnClickListener(v -> filterMarkersByType("Street Food"));
         findViewById(R.id.chipCoffee).setOnClickListener(v -> filterMarkersByType("Coffee"));
-        findViewById(R.id.chipBBQ).setOnClickListener(v -> filterMarkersByType("Grilled / BBQ"));
-        findViewById(R.id.chipSatay).setOnClickListener(v -> filterMarkersByType("Grilled / BBQ"));
-        findViewById(R.id.chipDrinks).setOnClickListener(v -> filterMarkersByType("Beverage"));
-        // Reset filter when clicking outside chips
-        findViewById(R.id.chipGroupFilters).setOnClickListener(v -> showAllMarkers());
+        findViewById(R.id.chipTea).setOnClickListener(v -> filterMarkersByType("Non-Coffee & Tea"));
+        findViewById(R.id.chipBeverage).setOnClickListener(v -> filterMarkersByType("Beverage"));
 
         // Set up legend toggle
         setupLegendToggle();
@@ -330,7 +336,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // Show all markers (reset filter)
     private void showAllMarkers() {
+        if (mMap == null) return;
+        mMap.clear();
+        markerFoodTruckMap.clear();
         displayFoodTrucksOnMap(allFoodTrucks);
+        
+        // Update chip selection to show "All Food Types" is selected
+        com.google.android.material.chip.ChipGroup chipGroup = findViewById(R.id.chipGroupFilters);
+        chipGroup.clearCheck();
+        findViewById(R.id.chipAll).setSelected(true);
     }
 
     // Fit all markers in view
@@ -680,7 +694,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setupButtonClickHandlers() {
-        // Yellow "+" button - Add Food Truck (now on left side)
+        // Green "My Location" button - Go to default location (Kuala Lumpur)
+        findViewById(R.id.fab_my_location).setOnClickListener(v -> {
+            // Go to default Kuala Lumpur location
+            LatLng defaultLocation = new LatLng(3.139, 101.6869);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12));
+            Toast.makeText(this, "Moved to Kuala Lumpur", Toast.LENGTH_SHORT).show();
+        });
+        
+        // Yellow "+" button - Add Food Truck
         findViewById(R.id.fab_add_data).setOnClickListener(v -> {
             Intent intent = new Intent(MapsActivity.this, InsertDataActivity.class);
             startActivity(intent);
