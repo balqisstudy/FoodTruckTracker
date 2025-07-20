@@ -25,11 +25,11 @@ app.use(express.static('public'));
 
 // Database setup
 const dbPath = path.join(__dirname, 'foodtrucks.db');
-const db = new sqlite3.Database(dbPath, (err) => {
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error('Error opening database:', err.message);
     } else {
-        console.log('Connected to SQLite database');
+        console.log('Connected to SQLite database with read-write permissions');
         createTables();
     }
 });

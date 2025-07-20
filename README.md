@@ -116,7 +116,7 @@ FoodTruckTracker/
 {
   "id": 1,
   "name": "Mee Goreng Express",
-  "type": "Mee Goreng",
+  "type": "Fried Dishes",
   "description": "Authentic Malaysian Mee Goreng",
   "latitude": 3.1390,
   "longitude": 101.6869,

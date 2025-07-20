@@ -1,6 +1,8 @@
 package com.example.foodtrucktracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -53,6 +55,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Map<Marker, FoodTruck> markerFoodTruckMap = new HashMap<>();
     // Store all loaded food trucks for filtering
     private List<FoodTruck> allFoodTrucks = new java.util.ArrayList<>();
+    
+    // Activity result launcher for food truck submission
+    private ActivityResultLauncher<Intent> addFoodTruckLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Initialize API service
         apiService = ApiClient.getFoodTruckApiService();
+        
+        // Initialize activity result launcher for food truck submission
+        addFoodTruckLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    // Food truck was added successfully, refresh the map
+                    Log.d(TAG, "Food truck added successfully, refreshing map...");
+                    Toast.makeText(this, "Refreshing map with new data...", Toast.LENGTH_SHORT).show();
+                    loadFoodTrucks();
+                }
+            }
+        );
 
         // Set up toolbar
         com.google.android.material.appbar.MaterialToolbar toolbar = findViewById(R.id.topAppBar);
@@ -139,6 +157,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Load food trucks from server
         loadFoodTrucks();
     }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh food trucks when returning to this activity
+        if (mMap != null) {
+            Log.d(TAG, "Activity resumed, refreshing food trucks...");
+            loadFoodTrucks();
+        }
+    }
 
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -152,6 +180,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void loadFoodTrucks() {
+        Log.d(TAG, "Loading food trucks from server...");
+        Log.d(TAG, "API Base URL: " + ApiClient.getClient().baseUrl());
+        
         Call<List<FoodTruck>> call = apiService.getAllFoodTrucks();
         call.enqueue(new Callback<List<FoodTruck>>() {
             @Override
@@ -159,18 +190,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (response.isSuccessful() && response.body() != null) {
                     allFoodTrucks = response.body();
                     displayFoodTrucksOnMap(allFoodTrucks);
-                    Log.d(TAG, "Loaded " + allFoodTrucks.size() + " food trucks");
+                    Log.d(TAG, "Successfully loaded " + allFoodTrucks.size() + " food trucks from server");
+                    Toast.makeText(MapsActivity.this, "✅ Loaded " + allFoodTrucks.size() + " food trucks", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.e(TAG, "Failed to load food trucks: " + response.code());
-                    Toast.makeText(MapsActivity.this, "Failed to load food trucks", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Server responded with error code: " + response.code() + ", message: " + response.message());
+                    Toast.makeText(MapsActivity.this, "❌ Server error: " + response.code() + " - Using sample data", Toast.LENGTH_LONG).show();
                     loadSampleData();
                 }
             }
 
             @Override
             public void onFailure(Call<List<FoodTruck>> call, Throwable t) {
-                Log.e(TAG, "Error loading food trucks", t);
-                Toast.makeText(MapsActivity.this, "Error connecting to server", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Network error connecting to server: " + t.getMessage(), t);
+                String errorMessage = "❌ Connection failed: ";
+                if (t instanceof java.net.ConnectException) {
+                    errorMessage += "Cannot reach server (ConnectException)";
+                } else if (t instanceof java.net.SocketTimeoutException) {
+                    errorMessage += "Connection timeout (SocketTimeoutException)";
+                } else if (t instanceof java.lang.IllegalStateException) {
+                    errorMessage += "JSON parsing error (IllegalStateException)";
+                } else {
+                    errorMessage += t.getClass().getSimpleName() + ": " + t.getMessage();
+                }
+                Toast.makeText(MapsActivity.this, errorMessage + " - Using sample data", Toast.LENGTH_LONG).show();
                 loadSampleData();
             }
         });
@@ -729,7 +771,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Yellow "+" button - Add Food Truck
         findViewById(R.id.fab_add_data).setOnClickListener(v -> {
             Intent intent = new Intent(MapsActivity.this, InsertDataActivity.class);
-            startActivity(intent);
+            addFoodTruckLauncher.launch(intent);
         });
     }
 

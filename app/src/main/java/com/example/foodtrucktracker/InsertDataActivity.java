@@ -162,6 +162,8 @@ public class InsertDataActivity extends AppCompatActivity implements LocationHel
                     
                     if (response.isSuccessful()) {
                         Toast.makeText(InsertDataActivity.this, "Food truck added successfully!", Toast.LENGTH_SHORT).show();
+                        // Set result to indicate successful submission
+                        setResult(RESULT_OK);
                         finish(); // Close activity
                     } else {
                         String errorMsg = "Failed to add food truck. Server error: " + response.code();
