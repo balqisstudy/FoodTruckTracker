@@ -344,48 +344,6 @@
                 android:textColor="@color/text_primary" />
         </LinearLayout>
 
-        <!-- 🌮 Fusion / International -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="4dp">
-
-            <View
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@drawable/legend_purple"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fusion / International"
-                android:textSize="12sp"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-        <!-- 🥘 Traditional Malaysian -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="4dp">
-
-            <View
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@drawable/legend_red_orange"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Traditional Malaysian"
-                android:textSize="12sp"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
         <!-- Coffee - Coffee Brown -->
         <LinearLayout
             android:layout_width="wrap_content"

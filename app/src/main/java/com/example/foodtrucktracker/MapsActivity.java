@@ -582,128 +582,47 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private BitmapDescriptor createCustomMarker(String foodType) {
         int color;
         
-        // Simplified Food Types with Marker Colors
-        // Fried Dishes - Yellow #FFD700
-        if (foodType.toLowerCase().contains("mee goreng") ||
-            foodType.toLowerCase().contains("maggi goreng") ||
-            foodType.toLowerCase().contains("laksa") ||
-            foodType.toLowerCase().contains("mee rebus") ||
-            foodType.toLowerCase().contains("curry mee") ||
-            foodType.toLowerCase().contains("seafood noodle") ||
-            foodType.toLowerCase().contains("nasi lemak") ||
-            foodType.toLowerCase().contains("nasi goreng") ||
-            foodType.toLowerCase().contains("nasi ayam") ||
-            foodType.toLowerCase().contains("bento bowl") ||
-            foodType.toLowerCase().contains("nasi tomato") ||
-            foodType.toLowerCase().contains("nasi hujan panas")) {
-            color = Color.parseColor("#FFD700"); // Yellow for fried dishes
-        }
-        // Grilled / BBQ - Red #FF4500
-        else if (foodType.toLowerCase().contains("satay") ||
-                 foodType.toLowerCase().contains("bbq stick") ||
-                 foodType.toLowerCase().contains("yakitori") ||
-                 foodType.toLowerCase().contains("grilled vegetable")) {
-            color = Color.parseColor("#FF4500"); // Red for grilled/BBQ
-        }
-        // Western Food - Dark Red #8B0000
-        else if (foodType.toLowerCase().contains("pizza") ||
-                 foodType.toLowerCase().contains("chicken wings") ||
-                 foodType.toLowerCase().contains("fries") ||
-                 foodType.toLowerCase().contains("nuggets") ||
-                 foodType.toLowerCase().contains("pasta") ||
-                 foodType.toLowerCase().contains("burger") ||
-                 foodType.toLowerCase().contains("slider") ||
-                 foodType.toLowerCase().contains("wrap") ||
-                 foodType.toLowerCase().contains("shawarma") ||
-                 foodType.toLowerCase().contains("sandwich") ||
-                 foodType.toLowerCase().contains("grilled cheese")) {
-            color = Color.parseColor("#8B0000"); // Dark red for western food
-        }
-        // Asian Cuisine - Purple #9370DB
-        else if (foodType.toLowerCase().contains("korean fried chicken") ||
-                 foodType.toLowerCase().contains("middle eastern") ||
-                 foodType.toLowerCase().contains("thai fusion") ||
-                 foodType.toLowerCase().contains("indonesian fusion") ||
-                 foodType.toLowerCase().contains("takoyaki") ||
-                 foodType.toLowerCase().contains("onigiri") ||
-                 foodType.toLowerCase().contains("gyoza") ||
-                 foodType.toLowerCase().contains("tteokbokki") ||
-                 foodType.toLowerCase().contains("spring roll")) {
-            color = Color.parseColor("#9370DB"); // Purple for Asian cuisine
-        }
-        // Traditional / Local - Dark Orange #FF8C00
-        else if (foodType.toLowerCase().contains("lontong") ||
-                 foodType.toLowerCase().contains("soto") ||
-                 foodType.toLowerCase().contains("laksa johor") ||
-                 foodType.toLowerCase().contains("ayam percik") ||
-                 foodType.toLowerCase().contains("keropok lekor") ||
-                 foodType.toLowerCase().contains("cendol") ||
-                 foodType.toLowerCase().contains("ais kacang")) {
-            color = Color.parseColor("#FF8C00"); // Dark orange for traditional/local
-        }
-        // Desserts & Sweets - Pink #FF69B4
-        else if (foodType.toLowerCase().contains("cake") ||
-                 foodType.toLowerCase().contains("cupcake") ||
-                 foodType.toLowerCase().contains("cheesecake") ||
-                 foodType.toLowerCase().contains("brownie") ||
-                 foodType.toLowerCase().contains("donut") ||
-                 foodType.toLowerCase().contains("waffle") ||
-                 foodType.toLowerCase().contains("crepe") ||
-                 foodType.toLowerCase().contains("ice cream") ||
-                 foodType.toLowerCase().contains("sundae")) {
-            color = Color.parseColor("#FF69B4"); // Pink for desserts & sweets
-        }
-        // Fruits - Green #32CD32
-        else if (foodType.toLowerCase().contains("healthy bowl") ||
-                 foodType.toLowerCase().contains("vegetarian") ||
-                 foodType.toLowerCase().contains("vegan snack") ||
-                 foodType.toLowerCase().contains("fresh juice") ||
-                 foodType.toLowerCase().contains("smoothie") ||
-                 foodType.toLowerCase().contains("detox") ||
-                 foodType.toLowerCase().contains("rojak")) {
-            color = Color.parseColor("#32CD32"); // Green for fruits
-        }
-        // Seafood - Teal #20B2AA
-        else if (foodType.toLowerCase().contains("seafood")) {
-            color = Color.parseColor("#20B2AA"); // Teal for seafood
-        }
-        // Street Food - Deep Blue #4169E1
-        else if (foodType.toLowerCase().contains("mamak") ||
-                 foodType.toLowerCase().contains("street food") ||
-                 foodType.toLowerCase().contains("food combo") ||
-                 foodType.toLowerCase().contains("family meal") ||
-                 foodType.toLowerCase().contains("mini snack") ||
-                 foodType.toLowerCase().contains("fusion menu")) {
-            color = Color.parseColor("#4169E1"); // Deep blue for street food
-        }
-        // Drink Types with Marker Colors
-        // Coffee - Coffee Brown #6F4E37
-        else if (foodType.toLowerCase().contains("coffee") ||
-                 foodType.toLowerCase().contains("espresso") ||
-                 foodType.toLowerCase().contains("latte") ||
-                 foodType.toLowerCase().contains("cappuccino") ||
-                 foodType.toLowerCase().contains("mocha") ||
-                 foodType.toLowerCase().contains("cold brew")) {
-            color = Color.parseColor("#6F4E37"); // Coffee brown for coffee
-        }
-        // Non-Coffee & Tea - Matcha Green #98FB98
-        else if (foodType.toLowerCase().contains("matcha") ||
-                 foodType.toLowerCase().contains("tea") ||
-                 foodType.toLowerCase().contains("iced lemon tea") ||
-                 foodType.toLowerCase().contains("fruit tea")) {
-            color = Color.parseColor("#98FB98"); // Matcha green for non-coffee & tea
-        }
-        // Beverage - Sky Blue #00BFFF
-        else if (foodType.toLowerCase().contains("boba tea") ||
-                 foodType.toLowerCase().contains("fizzy drinks") ||
-                 foodType.toLowerCase().contains("soda") ||
-                 foodType.toLowerCase().contains("coconut shake") ||
-                 foodType.toLowerCase().contains("juice")) {
-            color = Color.parseColor("#00BFFF"); // Sky blue for beverage
-        }
-        // Default
-        else {
-            color = Color.GRAY;
+        // Simplified Food Types with Marker Colors - Match exact category names from admin dashboard
+        switch (foodType.toLowerCase()) {
+            case "fried dishes":
+                color = Color.parseColor("#FFD700"); // Yellow #FFD700
+                break;
+            case "grilled / bbq":
+                color = Color.parseColor("#FF4500"); // Red #FF4500
+                break;
+            case "western food":
+                color = Color.parseColor("#8B0000"); // Dark Red #8B0000
+                break;
+            case "asian cuisine":
+                color = Color.parseColor("#9370DB"); // Purple #9370DB
+                break;
+            case "traditional / local":
+                color = Color.parseColor("#FF8C00"); // Dark Orange #FF8C00
+                break;
+            case "desserts & sweets":
+                color = Color.parseColor("#FF69B4"); // Pink #FF69B4
+                break;
+            case "fruits":
+                color = Color.parseColor("#32CD32"); // Green #32CD32
+                break;
+            case "seafood":
+                color = Color.parseColor("#20B2AA"); // Teal #20B2AA
+                break;
+            case "street food":
+                color = Color.parseColor("#4169E1"); // Deep Blue #4169E1
+                break;
+            case "coffee":
+                color = Color.parseColor("#6F4E37"); // Coffee Brown #6F4E37
+                break;
+            case "non-coffee & tea":
+                color = Color.parseColor("#98FB98"); // Matcha Green #98FB98
+                break;
+            case "beverage":
+                color = Color.parseColor("#00BFFF"); // Sky Blue #00BFFF
+                break;
+            default:
+                color = Color.GRAY; // Default gray for unknown types
+                break;
         }
         
         return BitmapDescriptorFactory.defaultMarker(getHueFromColor(color));
